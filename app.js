@@ -17,5 +17,5 @@ app.use(router);
 
 const port=80;
 app.listen(port, () => {
-    console.log('成绩查询app running '+port+'...');
+    console.log('教务成绩查询app running '+port+'...');
 });
