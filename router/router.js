@@ -63,7 +63,6 @@ router.post('/postRand', (req, res) => {
         })
         .then((results) => {
 
-            // console.log("第二个post请求:",results.data);
             res.send(results.data);
             if (results.data.loginStatus == 1) {
                 console.log(req.body.sid);
