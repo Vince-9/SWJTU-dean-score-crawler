@@ -2,6 +2,7 @@
 这是一整套完整的西南交大教务网自动查询成绩和自动通过邮件来通知新成绩的系统，可以和小伙伴们一起用
 ### 如何运行
 ```javascript
+cnpm install
 node app.js
 ```
 需要在module/目录下创建一个`sensitiveConfig.js`文件, 用于保存敏感的配置信息, 内容如下
