@@ -6,7 +6,7 @@ cnpm install
 node app.js
 ```
 需要在module/目录下创建一个`sensitiveConfig.js`文件, 用于保存敏感的配置信息, 内容如下
-```javasrcipt
+```javascript
 /**
  * 敏感信息
  */
