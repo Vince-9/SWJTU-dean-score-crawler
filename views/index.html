@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SWJTU-成绩通知系统</title>
+    <link rel="stylesheet" href="../public/css/index.css">
+    <script src="../node_modules/vue/dist/vue.min.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <h1 id="logo">VIN94.CN</h1>
+        <h2>SWJTU-成绩通知系统</h2>
+        <h3>通过邮箱，第一时间获取最新成绩</h3>
+        <div class="toogle">
+            <button :class="['toogle-btn',{'act':toogleForm==0}]" @click="toToogleForm(0)">录入</button>
+            <button :class="['toogle-btn',{'act':toogleForm==1}]" @click="toToogleForm(1)">验证码</button>
+        </div>
+        <form action="/GradeNotice" method="post" id="main-form" v-if="toogleForm==0">
+            <p><input type="text" class="input-text" name="username" id="username" v-model="username" placeholder="学号"></p>
+            <p>
+                <input type="password" v-model="password" class="input-text" name="password" id="password" placeholder="教务密码"></p>
+            <p><input type="email" v-model="email" class="input-text" name="email" id="email" placeholder="邮箱"></p>
+            <p><input type="text" class="input-text" v-model="CDKEY" name="CDKEY" id="CDKEY" placeholder="兑换码（不区分大小写)"></p>
+            <input type="button" value="提交" class="main-submit-btn" @click="handleMainSubmitClick">
+        </form>
+        <form id="randCode-form" v-if="toogleForm==1">
+            <img :src="randPath" @click="getRand" alt="" id="randCode">
+            <p><input type="text" class="input-text" name="username" v-model="username" placeholder="学号"></p>
+            <p>
+                <p><input type="text" id="randCode-input" class="input-text" v-model="randString" name="CDKEY" placeholder="验证码（不区分大小写）">
+                    <input type="button" id="re-get-rand" value="获取" @click="getRand">
+                </p>
+
+                <input type="button" value="提交" class="main-submit-btn rand-submit-btn" @click="handleRandCodeSubmitClick">
+        </form>
+    </div>
+
+    <script src="../public/js/index.js"></script>
+</body>
+
+</html>
