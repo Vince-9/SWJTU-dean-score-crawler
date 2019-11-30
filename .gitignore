@@ -1,5 +1,3 @@
 node_modules/
-public/data/randImg/
 test/
-email.js
-handleConnection.js
+sensitiveConfig.js
