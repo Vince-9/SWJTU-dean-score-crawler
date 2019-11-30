@@ -21,7 +21,6 @@ exports.getGradeBySid = function(sid) {
                 console.log(`getLatestGrade.js:登录已失效`);
                 console.log(html);
             }
-            // let grades = getDataFromHTML(HTML);
         })
 }
 

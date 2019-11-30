@@ -2,11 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 const body = require('body-parser');
-const User = require('./user.js');
-const getImg = require('./getImg.js');
-const getLatestGrade = require('./getLatestGrade.js');
-const email = require('./email.js');
-const keepChecking = require('./keepChecking.js');
+const User = require('../module/user');
+const getImg = require('../module/getImg');
+const getLatestGrade = require('../module/getLatestGrade');
+const email = require('../module/email');
+const keepChecking = require('../module/keepChecking');
 
 
 router.get('/grades', (req, res) => {
