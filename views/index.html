@@ -31,6 +31,7 @@
                     placeholder="兑换码（不区分大小写)"></p>
             <input type="button" value="提交" class="main-submit-btn" @click="handleMainSubmitClick">
         </form>
+        <!-- 提交验证码的表单 -->
         <form id="randCode-form" v-if="toogleForm==1">
             <img :src="randPath" @click="getRand" alt="" id="randCode">
             <p><input type="text" class="input-text" name="username" v-model="username" placeholder="学号"></p>
