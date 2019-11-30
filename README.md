@@ -4,6 +4,34 @@
 ```javascript
 node app.js
 ```
+需要在module/目录下创建一个`sensitiveConfig.js`文件, 用于保存敏感的配置信息, 内容如下
+```javasrcipt
+/**
+ * 敏感信息
+ */
+const nodemailer = require('nodemailer');
+
+// mysql配置
+exports.mysql_config = {
+    host: '',
+    user: '',
+    password: '',
+    database: ''
+};
+
+//email配置
+exports.transporter = nodemailer.createTransport({
+    // host: 'smtp.ethereal.email',
+    service: 'qq', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+    port: 465, // SMTP 端口
+    secureConnection: true, // 使用了 SSL
+    auth: {
+        user: '@xx.com', //你的邮箱
+        // 这里密码不是qq密码，是你设置的smtp授权码
+        pass: '',
+    }
+});
+```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能
 在网页端录入你的教务账号、密码，自动查询成绩，在成绩发生更新时，1分钟之内通过邮件将分数和科目告知你。
