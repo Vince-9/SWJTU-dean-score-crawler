@@ -12,21 +12,30 @@ exports.runAUser = function (userInfo) {
     let temp = setInterval(() => {
         setTimeout(() => {
 
-            console.log(userInfo.latest_class_name);
+            // console.log(userInfo.latest_class_name);
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
 
-                    if (grades && grades.latest_class_name != userInfo.className) {
+                    if (grades && grades.className != userInfo.latest_class_name) {
                         //保存新的课程名到数据库
-                        return user.saveClassNameByUserName(userInfo.userName, grades.className)
+                        return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
+                                // 更新内存中的用户数据
+                                exports.reRun();
+                                // 发送邮件
                                 email.sendMailNewGrade(userInfo.email, grades);
                             })
 
-                        //发送邮件
-                    } else {
-                        console.log('持续查询中, 还没有新成绩');
+                    } 
+
+                    // 若用户的最新课程名称为空
+                    if (!userInfo.className) {
+                        // 保存用户的最新课程名
+                        user.saveClassNameByUserName(userInfo.user_name, grades.className)
+                            .catch((err) => {
+                                console.log(err);
+                            })
                     }
 
 
@@ -53,8 +62,8 @@ exports.startChecking = function () {
 
             for (let userInfo of results) {
 
-                console.log(userInfo.latest_class_name);
-
+                // console.log(userInfo.latest_class_name);
+                // console.log(userInfo);
                 exports.runAUser(userInfo);
 
             }
@@ -62,6 +71,12 @@ exports.startChecking = function () {
         .catch((err) => {
             console.log(err);
         })
+}
+
+//重新运行
+exports.reRun = function(){
+    exports.stopChecking();
+    exports.startChecking();
 }
 
 exports.startChecking();//开始运行
