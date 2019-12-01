@@ -4,6 +4,7 @@
 const user = require('./user.js');
 const getLatestGrade = require('./getLatestGrade.js');
 const email = require('./email.js');
+const login = require('./loginToDean');
 
 let checkingInterval = [];
 
@@ -27,7 +28,7 @@ exports.runAUser = function (userInfo) {
                                 email.sendMailNewGrade(userInfo.email, grades);
                             })
 
-                    } 
+                    }
 
                     // 若用户的最新课程名称为空
                     if (!userInfo.className) {
@@ -40,10 +41,15 @@ exports.runAUser = function (userInfo) {
 
 
                 })
+                .catch((err) => {
+                    if (err == '未登录') {
+                        login.login(userInfo.user_name,userInfo.password);
+                    }
+                })
 
 
         }, Math.random() * 5 * 1000);//避免高并发
-    }, 30 * 1000);
+    }, 10 * 1000);
 
     checkingInterval.push(temp);
 }
@@ -74,10 +80,10 @@ exports.startChecking = function () {
 }
 
 //重新运行
-exports.reRun = function(){
+exports.reRun = function () {
     exports.stopChecking();
     exports.startChecking();
 }
 
-exports.startChecking();//开始运行
+//exports.startChecking();//开始运行
 

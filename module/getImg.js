@@ -5,6 +5,7 @@ const User = require('./user');
 
 let imgUrl = 'http://jwc.swjtu.edu.cn/vatuu/GetRandomNumberToJPEG';
 let sid = '';
+
 //参数:学号
 exports.getImgAndSession = function (userName) {
     return new Promise(function (_resolve, _reject) {
@@ -31,13 +32,13 @@ exports.getImgAndSession = function (userName) {
             //将sid存到数据库
             let saveSidPromise = User.saveSid(userName, sid);
 
-            Promise.all([writeFilePromise, saveSidPromise])
+            return Promise.all([writeFilePromise, saveSidPromise])
                 .then(() => {
                     console.log(`图片写入成功,sid保存成功,学号${userName}, sid: ${sid}`);
+                    return sid;
                 })
-                .catch((err, msg) => {
-                    console.log(err);
-                })
-            return sid;
+
+
         })
 }
+

@@ -7,7 +7,9 @@ const getImg = require('../module/getImg');
 const getLatestGrade = require('../module/getLatestGrade');
 const email = require('../module/email');
 const keepChecking = require('../module/keepChecking');
+const imgToString = require('../module/imgToString');
 
+keepChecking.startChecking();//开始查成绩
 
 router.get('/grades', (req, res) => {
     res.render('index.html');

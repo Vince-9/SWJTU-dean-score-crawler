@@ -3,24 +3,33 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
+const login = require('./loginToDean');
 
 //查询成绩页
 const url = 'http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=studentScoreQuery&viewType=studentScore&orderType=submitDate&orderValue=desc';
 
-exports.getGradeBySid = function(sid) {
+exports.getGradeBySid = function (sid) {
     return getGradePage(sid)
         .then((results) => {
-            let html = results.data;
-            if (html.indexOf('课程名称') >= 0) {
-                //查询成功的页面
-                return getDataFromHTML(html);
-            } else if(html.indexOf('还没有完成评价')>=0){
-                console.log('还没有完成评价');
-            } 
-            else {
-                console.log(`getLatestGrade.js:登录已失效`);
-                console.log(html);
-            }
+            return new Promise((resolve,reject)=>{
+                let html = results.data;
+                if (html.indexOf('课程名称') >= 0) {
+                    //查询成功的页面的数据
+                    resolve(getDataFromHTML(html));
+                } else if (html.indexOf('还没有完成评价') >= 0) {
+                    console.log('还没有完成评价');
+                }
+                else if (html.indexOf('您还未登陆') >= 0) {
+                    console.log(`getLatestGrade.js:登录已失效`);
+                    reject('未登录');
+                }
+                else{
+                    console.log(`getLatestGrade.js:未知错误`);
+                    reject('未知错误');
+                    console.log(html);
+                }
+            })
+            
         })
 }
 
