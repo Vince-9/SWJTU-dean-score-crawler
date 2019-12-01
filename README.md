@@ -33,6 +33,10 @@ exports.transporter = nodemailer.createTransport({
         pass: '',
     }
 });
+
+exports.baiduApi = {
+    'access_token': ''
+}
 ```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能
