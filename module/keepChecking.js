@@ -25,7 +25,9 @@ exports.runAUser = function (userInfo) {
                                 // 更新内存中的用户数据
                                 exports.reRun();
                                 // 发送邮件
-                                email.sendMailNewGrade(userInfo.email, grades);
+                                if (userInfo.latest_class_name != '数据') {
+                                    email.sendMailNewGrade(userInfo.email, grades);
+                                }
                             })
 
                     }
