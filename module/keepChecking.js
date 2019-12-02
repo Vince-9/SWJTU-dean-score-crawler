@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 不断地查询新成绩
  */
 const user = require('./user.js');
@@ -17,8 +17,8 @@ exports.runAUser = function (userInfo) {
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
-
-                    if (grades && grades.className != userInfo.latest_class_name) {
+                    //若课程名为‘数据’ 说明查询失败 再查
+                    if (grades && grades.className != userInfo.latest_class_name && grades.className != '数据') {
                         //保存新的课程名到数据库
                         return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
@@ -43,13 +43,13 @@ exports.runAUser = function (userInfo) {
                 })
                 .catch((err) => {
                     if (err == '未登录') {
-                        login.login(userInfo.user_name,userInfo.password);
+                        login.login(userInfo.user_name, userInfo.password);
                     }
                 })
 
 
         }, Math.random() * 5 * 1000);//避免高并发
-    }, 10 * 1000);
+    }, 30 * 1000);
 
     checkingInterval.push(temp);
 }
