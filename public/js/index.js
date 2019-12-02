@@ -11,7 +11,8 @@
             randPath: '', //验证码图片url
             sid: '', //服务器返回的教务网的sid
             randString: '', //用户输入的验证码
-            randCount: 0 //获取验证码的次数
+            randCount: 0, //获取验证码的次数
+            coverText: '提交中'
         },
         methods: {
             handleMainSubmitClick() {
@@ -115,6 +116,13 @@
         window.mainApp.randCount++;
         window.mainApp.toToogleForm(1);
     }
+
+    setInterval(() => {
+        window.mainApp.coverText += '.';
+        if (window.mainApp.coverText.length > 9) {
+            window.mainApp.coverText = '提交中';
+        }
+    }, 300);
 })()
 
 function getDataFromLocationHref(cname) {

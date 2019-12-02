@@ -44,6 +44,9 @@
                 <input type="button" value="提交" class="main-submit-btn rand-submit-btn"
                     @click="handleRandCodeSubmitClick">
         </form>
+        <div id="cover" v-if="preventClick">
+            <div class="text">{{ coverText }}</div>
+        </div>
     </div>
 
     <script src="../public/js/index.js"></script>

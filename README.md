@@ -52,7 +52,13 @@ exports.baiduApi = {
 在此之前，我的亲朋好友们会在网页端录入他们的教务账号、密码以及我提供的兑换码到数据库中（服务器资源有限，若用户过多会导致请求过于频繁，会封锁IP，但是这个功能我还没做，因为不是那么重要）。
 稍微看了下教务网登录页的代码，再用Chrome的开发者工具查看网络请求，再借助Cookie插件，研究了一下发现是在请求验证码的时候，响应头带上了‘Set-Cookie’字段，因此第一步应该是发送获取验证码的请求以获取一个SESSIONID，再想办法把这个SESSIONID认证。
 可以通过百度提供的API识别验证码（幸好教务网的验证码图案简单，不然就难办了），再加上账号和密码发送`POST`请求，获取`SESSIONID`。
+
+[百度AI开发者平台](https://ai.baidu.com/tech/imagerecognition)
+
+[通用文字识别](https://ai.baidu.com/docs#/OCR-API-GeneralBasic/top)
+
 教务网的SESSION有效期很短，但是只要不断地发新请求，它就能保持有效。
+
 ### 获取成绩查询页
 经过研究后发现，只要访问
 `http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=studentScoreQuery&viewType=studentScore&orderType=submitDate&orderValue=desc`
