@@ -78,5 +78,5 @@ function getDataFromHTML(data) {
 
     console.log(new Date(Date.now() + 8 * 60 * 60 * 1000),results);
     return results;
-    //$.html()  this line is not using.
+    //$.html()  this line is using.
 }
