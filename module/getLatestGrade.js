@@ -76,7 +76,7 @@ function getDataFromHTML(data) {
         results.regularGrade = regularGrade;
     });
 
-    console.log(results);
+    console.log(new Date(),results);
     return results;
     //$.html()
 }
