@@ -1,10 +1,9 @@
-﻿/**
+/**
  * 不断地查询新成绩
  */
 const user = require('./user.js');
 const getLatestGrade = require('./getLatestGrade.js');
 const email = require('./email.js');
-const login = require('./loginToDean');
 
 let checkingInterval = [];
 
@@ -17,20 +16,18 @@ exports.runAUser = function (userInfo) {
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
-                    //若课程名为‘数据’ 说明查询失败 再查
-                    if (grades && grades.className != userInfo.latest_class_name && grades.className != '数据') {
+
+                    if (grades && grades.className != userInfo.latest_class_name) {
                         //保存新的课程名到数据库
                         return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
                                 // 更新内存中的用户数据
                                 exports.reRun();
                                 // 发送邮件
-                                if (userInfo.latest_class_name != '数据') {
-                                    email.sendMailNewGrade(userInfo.email, grades);
-                                }
+                                email.sendMailNewGrade(userInfo.email, grades);
                             })
 
-                    }
+                    } 
 
                     // 若用户的最新课程名称为空
                     if (!userInfo.className) {
@@ -42,11 +39,6 @@ exports.runAUser = function (userInfo) {
                     }
 
 
-                })
-                .catch((err) => {
-                    if (err == '未登录') {
-                        login.login(userInfo.user_name, userInfo.password);
-                    }
                 })
 
 
@@ -82,10 +74,10 @@ exports.startChecking = function () {
 }
 
 //重新运行
-exports.reRun = function () {
+exports.reRun = function(){
     exports.stopChecking();
     exports.startChecking();
 }
 
-//exports.startChecking();//开始运行
+exports.startChecking();//开始运行
 

@@ -1,8 +1,38 @@
 # 西南交大教务网成绩查询爬虫
-这是一整套完整的西南交大教务网自动查询成绩和自动通过邮件来通知新成绩的系统，可以和小伙伴们一起用
+这是一整套完整的西南交大教务网自动查询成绩和自动通过邮件来通知新成绩的系统，可以和小伙伴们一起用。
+**本项目使用了大量Promise风格的代码，如果不熟悉Promise风格，可以先了解一下Promise哦。**
 ### 如何运行
 ```javascript
+cnpm install
 node app.js
+```
+需要在module/目录下创建一个`sensitiveConfig.js`文件, 用于保存敏感的配置信息, 内容如下
+```javascript
+/**
+ * 敏感信息
+ */
+const nodemailer = require('nodemailer');
+
+// mysql配置
+exports.mysql_config = {
+    host: '',
+    user: '',
+    password: '',
+    database: ''
+};
+
+//email配置
+exports.transporter = nodemailer.createTransport({
+    // host: 'smtp.ethereal.email',
+    service: 'qq', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+    port: 465, // SMTP 端口
+    secureConnection: true, // 使用了 SSL
+    auth: {
+        user: '@xx.com', //你的邮箱
+        // 这里密码不是qq密码，是你设置的smtp授权码
+        pass: '',
+    }
+});
 ```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能

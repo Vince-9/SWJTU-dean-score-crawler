@@ -69,8 +69,7 @@ exports.saveClassNameByUserName = function (userName, className) {
     })
 }
 
-//模拟登录,返回结果示例：
-//.data:{ loginMsg: '验证码输入不正确', loginStatus: '-2' }
+//模拟登录
 exports.fakeLogin = function (userName, password, sid, randString) {
     console.log(randString);
     let results = {};
