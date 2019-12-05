@@ -73,18 +73,19 @@ router.post('/postRand', (req, res) => {
 
         })
         .then((grades) => {
-            //重新运行
-            keepChecking.stopChecking();
-            keepChecking.startChecking();
-            
             //发送登录成功邮件
             if (grades) {
                 email.sendMailSuccessLogin(userInfo.email, grades);
             } else {
                 email.sendMailSuccessLoginWithoutComment(userInfo.email);
             }
-            // //保存最新课程名到数据库
+            //保存最新课程名到数据库
             return User.saveClassNameByUserName(userName, grades.className);
+        })
+        .then((res) => {
+            //重新运行
+            keepChecking.stopChecking();
+            keepChecking.startChecking();
         })
         .catch((err) => {
             console.log(err);
