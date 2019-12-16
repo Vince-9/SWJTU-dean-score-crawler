@@ -22,12 +22,13 @@ exports.runAUser = function (userInfo) {
                         //保存新的课程名到数据库
                         return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
+                                // 发送邮件
+                                email.sendMailNewGrade(userInfo.email, grades);
                                 // 更新内存中的用户数据
                                 exports.reRun();
-                                // 发送邮件
-                                if (userInfo.latest_class_name != '数据') {
-                                    email.sendMailNewGrade(userInfo.email, grades);
-                                }
+                                //if (userInfo.latest_class_name != '数据') {
+                                //email.sendMailNewGrade(userInfo.email, grades);
+                                //}
                             })
 
                     }
