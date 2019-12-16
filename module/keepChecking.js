@@ -18,6 +18,7 @@ exports.runAUser = function (userInfo) {
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
+                    console.log(new Date(Date.now() + 8 * 60 * 60 * 1000),grades);
                     //若课程名为‘数据’ 说明查询失败 再查
                     if (grades && grades.className != userInfo.latest_class_name && grades.className != '数据') {
                         logger.log('新成绩！', JSON.stringify(userInfo), grades.className);
