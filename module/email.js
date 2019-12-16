@@ -1,9 +1,10 @@
 const nodemailer = require('nodemailer');
+const logger = require('./logger');
 let transporter = require('./sensitiveConfig').transporter;
 
 // 发送登录成功的邮件通知
-exports.sendMailSuccessLogin = function(email, grades) {
-
+exports.sendMailSuccessLogin = function (email, grades) {
+    logger.log('登录成功通知，发送邮件：', email, ' 成绩：', grades);
     let mailOptions = {
         from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
         to: email, // list of receivers
@@ -23,8 +24,8 @@ exports.sendMailSuccessLogin = function(email, grades) {
 }
 
 // 发送登录成功但未完成课程评价的邮件通知
-exports.sendMailSuccessLoginWithoutComment = function(email) {
-
+exports.sendMailSuccessLoginWithoutComment = function (email) {
+    logger.log('登录成功但未完成课程评价，发送邮件：', email);
     let mailOptions = {
         from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
         to: email, // list of receivers
@@ -44,8 +45,8 @@ exports.sendMailSuccessLoginWithoutComment = function(email) {
 }
 
 //新成绩时,发送邮件
-exports.sendMailNewGrade = function(email,grades) {
-
+exports.sendMailNewGrade = function (email, grades) {
+    logger.log('新成绩通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
     let mailOptions = {
         from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
         to: email, // list of receivers

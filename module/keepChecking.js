@@ -5,6 +5,7 @@ const user = require('./user.js');
 const getLatestGrade = require('./getLatestGrade.js');
 const email = require('./email.js');
 const login = require('./loginToDean');
+const logger = require('./logger');
 
 let checkingInterval = [];
 
@@ -19,6 +20,7 @@ exports.runAUser = function (userInfo) {
                 .then((grades) => {
                     //若课程名为‘数据’ 说明查询失败 再查
                     if (grades && grades.className != userInfo.latest_class_name && grades.className != '数据') {
+                        logger.log('新成绩！', JSON.stringify(userInfo), grades.className);
                         //保存新的课程名到数据库
                         return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
