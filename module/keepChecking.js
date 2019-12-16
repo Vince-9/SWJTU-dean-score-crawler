@@ -18,10 +18,11 @@ exports.runAUser = function (userInfo) {
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
-                    console.log(new Date(Date.now() + 8 * 60 * 60 * 1000),grades);
+                    console.log(new Date(Date.now() + 8 * 60 * 60 * 1000), grades);
                     //若课程名为‘数据’ 说明查询失败 再查
                     if (grades && grades.className != userInfo.latest_class_name && grades.className != '数据') {
-                        logger.log('新成绩！', JSON.stringify(userInfo), grades.className);
+                        logger.log('新成绩！', userInfo.user_name, grades.className);
+                        console.log(`\n\n新成绩！！\n\n`);
                         //保存新的课程名到数据库
                         return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                             .then(() => {
@@ -48,6 +49,7 @@ exports.runAUser = function (userInfo) {
 
                 })
                 .catch((err) => {
+                    console.log(err);
                     if (err == '未登录') {
                         login.login(userInfo.user_name, userInfo.password);
                     }

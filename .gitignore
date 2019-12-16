@@ -4,3 +4,4 @@ test/
 email.js
 handleConnection.js
 sensitiveConfig.js
+log.txt
