@@ -2,7 +2,7 @@ const fs = require('fs');
 
 exports.log = (...args) => {
     console.log(`logger执行了`);
-    let data = new Date(Date.now() + 8 * 60 * 60 * 1000) + ' ： ';
+    let data = new Date(Date.now()) + ' ： ';
     for (let item of args) {
         data += String(item);
     }
