@@ -13,8 +13,7 @@ let checkingInterval = [];
 exports.runAUser = function (userInfo) {
     let temp = setInterval(() => {
         setTimeout(() => {
-
-            // console.log(userInfo.latest_class_name);
+            //  console.log(userInfo.latest_class_name);
 
             getLatestGrade.getGradeBySid(userInfo.session_id)
                 .then((grades) => {
