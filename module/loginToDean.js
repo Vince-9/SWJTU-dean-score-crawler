@@ -25,7 +25,9 @@ exports.login = function (userName, password) {
                     resolve(result.data);
                 } else if (result.data.loginMsg.indexOf('验证码') >= 0) {
                     // 验证码错误,再试
-                    exports.login(userName, password);
+                    setTimeout(() => {
+                        exports.login(userName, password);
+                    }, Math.random() * 1000 + 2000);
                 } else {
                     // 可能是密码错误
                     reject(result.data);
