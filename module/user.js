@@ -125,7 +125,7 @@ exports.fakeLogin = function (userName, password, sid, randString) {
 
         })
         .then((res) => {
-            console.log('模拟登录: ', res.data);
+            console.log('模拟登录');
             return results;
         })
 }
