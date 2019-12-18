@@ -118,7 +118,7 @@ exports.stopChecking = function () {
 
 //开始运行
 exports.startChecking = function () {
-    user.getAllDataFromMySql()
+    user.getAllNoShutdownDataFromMySql()
         .then((results) => {
 
             for (let userInfo of results) {

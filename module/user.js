@@ -146,6 +146,21 @@ exports.getAllDataFromMySql = function () {
     })
 }
 
+//获取所有status不为0的信息
+exports.getAllNoShutdownDataFromMySql = function () {
+    let sqlLine = `SELECT * FROM user_info WHERE status <> 0`;
+
+    return new Promise((resolve, reject) => {
+        connection.query(sqlLine, (err, results) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(results);
+        })
+
+    })
+}
+
 exports.getUserInfoFromMySqlBySid = function (sid) {
     return new Promise((resolve, reject) => {
         let sqlLine = 'SELECT * FROM user_info WHERE session_id = ?'
