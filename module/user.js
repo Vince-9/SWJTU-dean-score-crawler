@@ -13,7 +13,7 @@ exports.addUser = function (userName, password, email) {
                     return;
                 }
                 //将用户信息插入表中
-                let sqlLine = `INSERT INTO user_info (user_name,password, email) VALUES( ? , ?, ?)`;
+                let sqlLine = `INSERT INTO user_info (user_name,password, email, status) VALUES( ? , ?, ?, 1)`;
                 connection.query(sqlLine, [userName, password, email], function (error, results, fields) {
                     if (error) _reject(error, '信息注册失败');
                     _resolve(results);
