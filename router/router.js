@@ -9,11 +9,16 @@ const email = require('../module/email');
 const keepChecking = require('../module/keepChecking');
 const imgToString = require('../module/imgToString');
 
-keepChecking.startChecking();//开始查成绩
+keepChecking.startChecking(); //开始查成绩
 
 router.get('/grades', (req, res) => {
     res.render('index.html');
 });
+
+// 毛概
+router.get('/quest', (req, res) => {
+    res.render('quest.html');
+})
 
 router.post('/GradeNotice', (req, res) => {
     console.log(req.body);

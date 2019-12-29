@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#mainApp {
+    max-width: 90vw;
+    width: 1500px;
+    background: rgba(224, 241, 245, 0.1);
+    margin: 20px auto;
+}
+
+.quest {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.show-ans-btn {
+    display: block;
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    background: royalblue;
+    color: white;
+    box-shadow: 2px 3px 5px rgb(46, 76, 167);
+    cursor: pointer;
+}
+
+.show-ans-btn:hover {
+    opacity: .9;
+}
+
+.show-ans-btn:active {
+    transition: transform .3s;
+    transform: scale(.95);
+}
