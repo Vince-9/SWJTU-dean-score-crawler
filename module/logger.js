@@ -6,12 +6,13 @@ exports.log = (...args) => {
     for (let item of args) {
         data += String(item);
     }
-    data += '\n';
+    data = '\n' + data;
+    data += '\r\n';
     console.log(data);
     fs.appendFile('./log.txt', data, (err) => {
         if (err) {
             console.log(err);
-        }else{
+        } else {
             console.log('文件内容已追加');
         }
     });
