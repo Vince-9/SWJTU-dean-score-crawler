@@ -17,7 +17,10 @@ router.get('/grades', (req, res) => {
 
 // 毛概
 router.get('/quest', (req, res) => {
-    res.render('quest.html');
+    fs.readFile('../views/quest.html', (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    })
 })
 
 router.post('/GradeNotice', (req, res) => {
