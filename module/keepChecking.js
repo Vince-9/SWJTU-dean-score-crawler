@@ -53,10 +53,10 @@ function check(userInfo) {
             })
 
 
-    }, Math.random() * 10 * 1000);//避免高并发
+    }, Math.random() * 20 * 1000); //避免高并发
 }
 
-exports.runAUser = function (userInfo) {
+exports.runAUser = function(userInfo) {
     check(userInfo);
     let temp = setInterval(() => {
         check(userInfo);
@@ -110,14 +110,14 @@ exports.runAUser = function (userInfo) {
 }
 
 //停止运行
-exports.stopChecking = function () {
+exports.stopChecking = function() {
     for (let item of checkingInterval) {
         clearInterval(item);
     }
 }
 
 //开始运行
-exports.startChecking = function () {
+exports.startChecking = function() {
     user.getAllNoShutdownDataFromMySql()
         .then((results) => {
 
@@ -135,10 +135,9 @@ exports.startChecking = function () {
 }
 
 //重新运行
-exports.reRun = function () {
+exports.reRun = function() {
     exports.stopChecking();
     exports.startChecking();
 }
 
 //exports.startChecking();//开始运行
-
