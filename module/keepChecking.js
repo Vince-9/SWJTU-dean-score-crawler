@@ -53,7 +53,7 @@ function check(userInfo) {
             })
 
 
-    }, Math.random() * 5 * 1000);//避免高并发
+    }, Math.random() * 10 * 1000);//避免高并发
 }
 
 exports.runAUser = function (userInfo) {
@@ -104,7 +104,7 @@ exports.runAUser = function (userInfo) {
 
 
         // }, Math.random() * 5 * 1000);//避免高并发
-    }, 30 * 1000);
+    }, 60 * 1000);
 
     checkingInterval.push(temp);
 }
