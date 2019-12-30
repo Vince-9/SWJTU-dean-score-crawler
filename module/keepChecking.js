@@ -115,9 +115,10 @@ exports.updateUserInfoInMeo = function () {
  * 停止一名用户的执行
  */
 exports.stopAUser = function (userName) {
-    checkingInterval.forEach(item => {
+    checkingInterval.forEach((item, index) => {
         if (item.userName == userName) {
             clearInterval(item.interval);
+            checkingInterval.splice(index, 1);
         }
     })
 }

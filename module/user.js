@@ -1,6 +1,7 @@
 const connection = require('./handleConnection').connection;
 const axios = require('axios');
 const querystring = require('querystring');
+const logger = require('./logger')
 
 //添加新用户
 exports.addUser = function (userName, password, email) {
@@ -100,6 +101,13 @@ exports.fakeLogin = function (userName, password, sid, randString) {
         .then((_result) => {
             results = _result;
             console.log('fakeLogin: ', results.data);
+            let loginMsg = results.data.loginMsg;
+            if (loginMsg.indexOf('密码') >= 0 || loginMsg.indexOf('用户不存在') >= 0) {
+                // 密码错误或用户不存在
+                exports.deleteUserByUsername(userName);
+                logger.log('删除了用户：', userName);
+                return;
+            }
 
             return axios.post('http://dean.vatuu.com/vatuu/UserLoadingAction', querystring.stringify({
                 "url": "http://dean.vatuu.com/vatuu/UserLoadingAction",
@@ -127,6 +135,9 @@ exports.fakeLogin = function (userName, password, sid, randString) {
         .then((res) => {
             console.log('模拟登录');
             return results;
+        })
+        .catch(err => {
+            console.log(err);
         })
 }
 
@@ -169,6 +180,19 @@ exports.getUserInfoFromMySqlBySid = function (sid) {
             resolve(results[0]);
         })
     })
+}
+
+exports.deleteUserByUsername = function (userName) {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `DELETE FROM user_info WHERE user_name = ?`;
+        connection.query(sqlLine, [userName], (err, results) => {
+            if (err) reject(err);
+            resolve(results);
+        })
+    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // exports.addUser();

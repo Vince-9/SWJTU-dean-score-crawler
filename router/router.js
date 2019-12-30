@@ -80,6 +80,8 @@ router.post('/postRand', (req, res) => {
             if (results.data.loginStatus == 1) {
                 console.log(req.body.sid);
                 return getLatestGrade.getGradeBySid(req.body.sid);
+            } else {
+                throw '登录失败';
             }
 
         })
