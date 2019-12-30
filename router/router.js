@@ -95,8 +95,9 @@ router.post('/postRand', (req, res) => {
         })
         .then((res) => {
             //重新运行
-            keepChecking.stopChecking();
-            keepChecking.startChecking();
+            // keepChecking.stopChecking();
+            // keepChecking.startChecking();
+            keepChecking.reRunAUser(userName);
         })
         .catch((err) => {
             console.log(err);

@@ -21,7 +21,8 @@ exports.login = function (userName, password) {
             return new Promise((resolve, reject) => {
                 if (result.data.loginStatus == 1) {
                     //登录成功
-                    keepChecking.reRun();
+                    //keepChecking.reRun();
+                    keepChecking.reRunAUser(userName);
                     resolve(result.data);
                 } else if (result.data.loginMsg.indexOf('验证码') >= 0) {
                     // 验证码错误,再试
