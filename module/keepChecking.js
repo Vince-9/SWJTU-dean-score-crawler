@@ -104,7 +104,7 @@ exports.runAUser = function(userInfo) {
 
 
         // }, Math.random() * 5 * 1000);//避免高并发
-    }, 60 * 1000);
+    }, 90 * 1000);
 
     checkingInterval.push(temp);
 }
