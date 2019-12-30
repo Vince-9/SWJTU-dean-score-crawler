@@ -14,8 +14,8 @@
 <body>
     <h1>@麦芽糖</h1>
     <div id="mainApp">
-        <div class="quest-item" v-for="item in questData">
-            <p class="quest" v-text="item.question">问题</p>
+        <div class="quest-item" v-for="(item, index) in questData">
+            <p class="quest">{{ index+'. '+item.question }}</p>
             <input type="radio" name="" id="">A.{{item.A}}<br>
             <input type="radio" name="" id="">B.{{item.B}}<br>
             <input type="radio" name="" id="">C.{{item.C}}<br>

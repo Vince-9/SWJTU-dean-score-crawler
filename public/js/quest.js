@@ -1,4 +1,4 @@
-(function() {
+window.onload = function() {
     window.mainApp = new Vue({
         el: '#mainApp',
         data: {
@@ -12,4 +12,4 @@
         }
     })
     console.log(questData);
-})()
+}
