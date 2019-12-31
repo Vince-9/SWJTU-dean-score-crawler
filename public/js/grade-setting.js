@@ -22,7 +22,7 @@ let vm = new Vue({
             } else {
                 alert('登录失败');
             }
-            getUserInfo();
+            testLogin();
         },
 
         handleTurnOnBtnClick: async () => {
