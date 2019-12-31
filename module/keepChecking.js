@@ -130,7 +130,8 @@ exports.reRunAUser = function (userName) {
     exports.stopAUser(userName);
     user.findUserByName(userName)
         .then(res => {
-            exports.runAUser(res[0]);
+            if (res && res[0] && res[0].status == 1)
+                exports.runAUser(res[0]);
         })
         .catch(err => {
             console.log(err);
