@@ -7,8 +7,8 @@ const email = require('./email.js');
 const login = require('./loginToDean');
 const logger = require('./logger');
 
-const delayTime = 40;// 每次查询的随机延迟（秒）
-const roundTime = 60;// 每轮查询的间隔（秒）
+const delayTime = 100;// 每次查询的随机延迟（秒）
+const roundTime = 120;// 每轮查询的间隔（秒）
 
 let checkingInterval = [];
 let globalUserInfo = [];// 从数据库中查询到的用户信息
