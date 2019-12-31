@@ -19,6 +19,7 @@ let vm = new Vue({
             vm.showCover = false;
             if (loginRes.data.isLogin == 1) {
                 vm.toogleForm = 1;
+                getUserInfo();
             } else {
                 alert('登录失败');
             }
@@ -42,7 +43,7 @@ let vm = new Vue({
             vm.toogleForm = 2;
         },
 
-        handleSetEmailSubmitClick:async () => {
+        handleSetEmailSubmitClick: async () => {
             if (vm.newEmail.trim().length == 0) {
                 alert('请输入完整的邮箱');
                 return;
