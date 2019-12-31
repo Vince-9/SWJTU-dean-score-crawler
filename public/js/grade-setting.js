@@ -19,10 +19,10 @@ let vm = new Vue({
             vm.showCover = false;
             if (loginRes.data.isLogin == 1) {
                 vm.toogleForm = 1;
-                getUserInfo();
             } else {
                 alert('登录失败');
             }
+            getUserInfo();
         },
 
         handleTurnOnBtnClick: async () => {
