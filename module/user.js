@@ -213,6 +213,10 @@ exports.loginToHere = (req, res) => {
             }
         })
     })
+        .catch(err => {
+            console.log(err);
+            res.send({ err: '错误' });
+        })
 }
 
 exports.setUserStatus = (userName, status) => {
