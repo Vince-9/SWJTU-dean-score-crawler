@@ -107,11 +107,14 @@ exports.fakeLogin = function (userName, password, sid, randString) {
                 // 密码错误或用户不存在
                 exports.findUserByName(userName)
                     .then(res => {
+                        exports.deleteUserByUsername(userName);
                         if (res[0])
-                            email.sendMailDeleteUser(res[0].eamil);
+                        email.sendMailDeleteUser(res[0].eamil);
                     })
-                    .catch(err => console.log(err))
-                exports.deleteUserByUsername(userName);
+                    .catch(err => {
+                        exports.deleteUserByUsername(userName);
+                        console.log(err);
+                    })
                 logger.log('删除了用户：', userName);
                 return;
             }
