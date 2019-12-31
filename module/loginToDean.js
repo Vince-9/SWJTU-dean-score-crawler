@@ -62,13 +62,11 @@ exports.login2 = async function (userName, password) {
             keepChecking.reRunAUser(userName);
             delete loginUser[userName];
             return loginRes.data;
-            // resolve(result.data);
         } else if (loginRes.data.loginMsg.indexOf('验证码') >= 0) {
             // 验证码错误,再试
             await util.sleep(Math.random() * 2000 + 100);
         } else {
             // 可能是密码错误
-            // reject(result.data);
             console.log(`${userName}:密码错误`);
             delete loginUser[userName];
             return loginRes.data;

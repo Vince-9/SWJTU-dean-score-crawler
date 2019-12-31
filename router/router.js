@@ -71,6 +71,10 @@ router.post('/postRand', (req, res) => {
     User.getUserInfoFromMySqlBySid(req.body.sid) //从数据库获取密码
         .then((results) => {
             userInfo = results;
+            if (!userInfo) {
+                res.send({ loginStatus: -1, loginMsg: '用户未录入！请刷新页面录入后再试' });
+                throw '用户未录入';
+            }
             return User.fakeLogin(userName, userInfo.password, req.body.sid, req.body.randString);
 
         })

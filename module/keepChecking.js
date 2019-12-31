@@ -54,14 +54,14 @@ function check(userInfo) {
             })
 
 
-    }, Math.random() * 20 * 1000); //避免高并发
+    }, Math.random() * delayTime * 1000); //避免高并发
 }
 
 exports.runAUser = function (userInfo) {
     check(userInfo);
     let temp = setInterval(() => {
         check(userInfo);
-    }, 60 * 1000);
+    }, roundTime * 1000);
 
     checkingInterval.push({
         interval: temp,
