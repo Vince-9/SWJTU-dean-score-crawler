@@ -53,7 +53,7 @@ exports.login2 = async function (userName, password) {
         let sid = await getImg.getImgAndSession(userName);
         let ranString = await imgToString.getWords(userName);
         if (ranString === 'NULL' || ranString.length !== 4) {
-            await util.sleep(5000);
+            await util.sleep(1000);
             continue;
         }
         let loginRes = await user.fakeLogin(userName, password, _sid, ranString);
@@ -65,7 +65,7 @@ exports.login2 = async function (userName, password) {
             // resolve(result.data);
         } else if (loginRes.data.loginMsg.indexOf('验证码') >= 0) {
             // 验证码错误,再试
-            await util.sleep(Math.random() * 2000 + 100);
+            await util.sleep(Math.random() * 2000 + 5000);
         } else {
             // 可能是密码错误
             // reject(result.data);
