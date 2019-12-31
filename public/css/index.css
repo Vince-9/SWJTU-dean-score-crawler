@@ -186,3 +186,12 @@ form p {
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+.hint{
+    width: 400px;
+    margin: 20px auto;
+}
+
+.hint>ul{
+    width: 80%;
+}

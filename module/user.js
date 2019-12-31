@@ -195,4 +195,50 @@ exports.deleteUserByUsername = function (userName) {
         })
 }
 
+/**
+ * 在修改信息页登录
+ */
+exports.loginToHere = (req, res) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `SELECT * FROM user_info WHERE user_name = ? AND password = ?`;
+        connection.query(sqlLine, [req.body.userName, req.body.password], (err, qres) => {
+            if (err) console.log(err);
+            if (qres[0].user_name == req.body.userName) {
+                req.session.isLogin = 1;
+                req.session.userName = qres[0].user_name;
+                req.session.password = qres[0].password;
+                req.session.email = qres[0].email;
+                qres[0].isLogin = 1;
+                res.send(qres[0]);
+            }
+        })
+    })
+}
+
+exports.setUserStatus = (userName, status) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `UPDATE user_info SET status = ? WHERE user_name = ?`;
+        connection.query(sqlLine, [status, userName], (err, qres) => {
+            if (err) {
+                console.log(err);
+                reject({ status: 0 });
+            }
+            resolve({ status: 1 });
+        })
+    })
+}
+
+exports.setUserEmail = (userName, newEmail) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `UPDATE user_info SET email = ? WHERE user_name = ?`;
+        connection.query(sqlLine, [newEmail, userName], (err, qres) => {
+            if (err) {
+                console.log(err);
+                reject({ status: 0 });
+            }
+            resolve({ status: 1 });
+        })
+    })
+}
+
 // exports.addUser();

@@ -17,13 +17,89 @@ router.get('/grades', (req, res) => {
 
 // 毛概
 router.get('/quest', (req, res) => {
-    // fs.readFile('../views/quest.html', (err, data) => {
-    //     if (err) console.log(err);
-    //     res.send(data);
-    //     console.log(data);
-    // })
-    let quest = fs.readFileSync('./views/quest.html');
-    res.end(quest);
+    fs.readFile('./views/quest.html', 'utf8', (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    });
+    // let quest = fs.readFileSync('./views/quest.html');
+    // res.end(quest);
+})
+
+router.get('/grade-setting', (req, res) => {
+    fs.readFile('./views/grade-setting.html', 'utf8', (err, data) => {
+        if (err)
+            console.log(err);
+        res.send(data);
+    })
+})
+
+// 设置取消或开启服务及修改信息页面
+router.get('/grade-setting', (req, res) => {
+    fs.readFile('./views/quest.html', 'utf8', (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    });
+})
+
+// 测试登录
+router.post('/grade-testlogin', (req, res) => {
+    if (req.session.isLogin) {
+        res.send({
+            isLogin: 1,
+            username: req.session.userName
+        })
+    } else {
+        res.send({
+            isLogin: 0
+        })
+    }
+})
+
+// 登录
+router.post('/grade-login', (req, res) => {
+    User.loginToHere(req, res);
+})
+
+// 设置开启或取消订阅
+router.get('/grade-setstatus', (req, res) => {
+    console.log('设置开启或取消订阅', req.query);
+    User.setUserStatus(req.session.userName, req.query.status)
+        .then(qres => {
+            res.send(qres);
+            keepChecking.reRunAUser(req.session.userName);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send({ err: '错误' })
+        })
+})
+
+// 
+router.get('/grade-getuserinfo', (req, res) => {
+    User.findUserByName(req.session.userName)
+        .then(qres => {
+            res.send(qres[0]);
+        })
+})
+
+//修改邮箱
+router.get('/grade-updateemail', (req, res) => {
+    User.setUserEmail(req.session.userName, req.query.email)
+        .then(qres => {
+            req.session.email = req.query.email;
+            res.send(qres);
+            keepChecking.reRunAUser(req.session.userName);
+        })
+        .catch(err => {
+            res.send({ err: '错误' });
+            console.log(err);
+        })
+})
+
+// 退出登录
+router.get('/grade-logout', (req, res) => {
+    req.session.isLogin = false;
+    res.send();
 })
 
 router.post('/GradeNotice', (req, res) => {
@@ -76,7 +152,6 @@ router.post('/postRand', (req, res) => {
                 throw '用户未录入';
             }
             return User.fakeLogin(userName, userInfo.password, req.body.sid, req.body.randString);
-
         })
         .then((results) => {
 
@@ -101,8 +176,6 @@ router.post('/postRand', (req, res) => {
         })
         .then((res) => {
             //重新运行
-            // keepChecking.stopChecking();
-            // keepChecking.startChecking();
             keepChecking.reRunAUser(userName);
         })
         .catch((err) => {
