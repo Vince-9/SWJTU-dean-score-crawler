@@ -3,7 +3,7 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
-const login = require('./loginToDean');
+// const login = require('./loginToDean');
 
 //查询成绩页
 const url = 'http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=studentScoreQuery&viewType=studentScore&orderType=submitDate&orderValue=desc';

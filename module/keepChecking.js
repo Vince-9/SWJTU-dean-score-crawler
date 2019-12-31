@@ -49,7 +49,7 @@ function check(userInfo) {
             .catch((err) => {
                 console.log(err);
                 if (err == '未登录') {
-                    login.login(userInfo.user_name, userInfo.password);
+                    login.login2(userInfo.user_name, userInfo.password);
                 }
             })
 
