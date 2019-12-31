@@ -50,7 +50,7 @@ exports.login2 = async function (userName, password) {
         loginUser[userName] = true;
 
     while (true) {
-        let sid = await getImgAndSession(userName);
+        let sid = await getImg.getImgAndSession(userName);
         let ranString = await imgToString.getWords(userName);
         if (ranString === 'NULL' || ranString.length !== 4) {
             continue;
