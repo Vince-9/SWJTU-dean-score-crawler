@@ -67,3 +67,26 @@ exports.sendMailNewGrade = function (email, grades) {
     });
 
 }
+
+// 账号被删除时，发送通知邮件
+exports.sendMailDeleteUser = (email) => {
+    logger.log('删除账号通知，发送邮件：', email);
+    let mailOptions = {
+        from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
+        to: email, // list of receivers
+        subject: `【麦芽糖】你的账号因密码不正确而被删除`, // Subject line
+        html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1>
+        <h2>你的账号已从本系统中清除</h2>
+        <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a>重新录入</p>
+        <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('发送删除邮件: %s', info.messageId);
+        // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+    });
+}

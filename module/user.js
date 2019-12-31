@@ -1,7 +1,8 @@
 const connection = require('./handleConnection').connection;
 const axios = require('axios');
 const querystring = require('querystring');
-const logger = require('./logger')
+const logger = require('./logger');
+const email = require('./email');
 
 //添加新用户
 exports.addUser = function (userName, password, email) {
@@ -104,6 +105,12 @@ exports.fakeLogin = function (userName, password, sid, randString) {
             let loginMsg = results.data.loginMsg;
             if (loginMsg.indexOf('密码') >= 0 || loginMsg.indexOf('用户不存在') >= 0) {
                 // 密码错误或用户不存在
+                exports.findUserByName(userName)
+                    .then(res => {
+                        if (res[0])
+                            email.sendMailDeleteUser(res[0].eamil);
+                    })
+                    .catch(err => console.log(err))
                 exports.deleteUserByUsername(userName);
                 logger.log('删除了用户：', userName);
                 return;
