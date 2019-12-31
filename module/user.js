@@ -203,6 +203,10 @@ exports.loginToHere = (req, res) => {
         let sqlLine = `SELECT * FROM user_info WHERE user_name = ? AND password = ?`;
         connection.query(sqlLine, [req.body.userName, req.body.password], (err, qres) => {
             if (err) console.log(err);
+            if (!qres[0]) {
+                res.send('');
+                return;
+            }
             if (qres[0].user_name == req.body.userName) {
                 req.session.isLogin = 1;
                 req.session.userName = qres[0].user_name;
