@@ -27,12 +27,14 @@
                 for (let item in formData) {
                     if (formData[item].length == 0) {
                         alert('表单不完整');
+                        this.preventClick = false;
                         return;
                     }
                 }
                 let emailPat = /.+@(qq|foxmail|126|163|gmail|outlook|hotmail)\.com$/i;
                 if (!emailPat.test(this.email.trim())) {
                     alert('请检查你的邮箱地址，邮箱仅支持qq、foxmail、163、126、outlook、gamil');
+                    this.preventClick = false;
                     return;
                 }
                 axios.post('/GradeNotice', formData)
