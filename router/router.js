@@ -78,6 +78,7 @@ router.get('/grade-setstatus', (req, res) => {
 router.get('/grade-getuserinfo', (req, res) => {
     User.findUserByName(req.session.userName)
         .then(qres => {
+            delete qres[0].session_id;
             delete qres[0].password;
             res.send(qres[0]);
         })

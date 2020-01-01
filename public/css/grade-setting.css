@@ -79,7 +79,7 @@ header {
     text-shadow: 2px 2px 4px rgba(17, 133, 228, .8);
 }
 
-header>.index-link{
+header>.index-link {
     display: inline-block;
     width: 60px;
     height: 24px;
@@ -91,6 +91,14 @@ form p {
     width: 90%;
     max-width: 400px;
     margin: 10px auto;
+}
+
+.status-on {
+    color: rgb(10, 168, 10);
+}
+
+.status-off {
+    color: red;
 }
 
 .input-text {
@@ -136,7 +144,7 @@ p.hello {
     margin-top: 50px;
 }
 
-#logout-btn{
+#logout-btn {
     width: 100px;
     height: 24px;
     border: 1px solid royalblue;
@@ -145,7 +153,7 @@ p.hello {
     border-radius: 12px;
 }
 
-#logout-btn:hover{
+#logout-btn:hover {
     background: royalblue;
     color: white;
 }
