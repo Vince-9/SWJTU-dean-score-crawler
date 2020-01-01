@@ -109,13 +109,13 @@ exports.fakeLogin = function (userName, password, sid, randString) {
                     .then(res => {
                         exports.deleteUserByUsername(userName);
                         if (res[0])
-                        email.sendMailDeleteUser(res[0].eamil);
+                            email.sendMailDeleteUser(res[0].eamil);
+                        logger.log('删除了用户：', userName, res);
                     })
                     .catch(err => {
                         exports.deleteUserByUsername(userName);
                         console.log(err);
                     })
-                logger.log('删除了用户：', userName);
                 return;
             }
 
