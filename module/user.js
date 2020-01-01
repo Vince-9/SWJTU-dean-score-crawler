@@ -267,10 +267,10 @@ exports.getUserCount = () => {
             console.log(res);
             resolve(res[0].uc);
         })
-            .catch(err => {
-                console.log(err);
-            })
     })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // exports.addUser();
