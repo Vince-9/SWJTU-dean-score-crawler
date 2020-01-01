@@ -17,6 +17,7 @@
         methods: {
             handleMainSubmitClick() {
                 if (this.preventClick) return; //防止重复提交
+                this.randCount = 0; //重置验证码获取次数
                 this.preventClick = true;
                 let formData = {
                     username: this.username.trim(),
@@ -78,6 +79,7 @@
                             this.preventClick = false;
                         })
                         .catch((err) => {
+                            this.preventClick = false;
                             console.log(err);
                         })
                 }
