@@ -79,6 +79,13 @@ header {
     text-shadow: 2px 2px 4px rgba(17, 133, 228, .8);
 }
 
+header>.index-link{
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+    color: white;
+}
+
 form p {
     display: block;
     width: 90%;
