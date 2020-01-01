@@ -22,7 +22,10 @@ exports.getWords = function (userName) {
             } else {
                 return 'NULL';
             }
-        });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 
