@@ -109,7 +109,7 @@ exports.fakeLogin = function (userName, password, sid, randString) {
                     .then(res => {
                         exports.deleteUserByUsername(userName);
                         if (res[0])
-                            email.sendMailDeleteUser(res[0].eamil);
+                            email.sendMailDeleteUser(res[0].email);
                         logger.log('删除了用户：', userName, JSON.stringify(res));
                     })
                     .catch(err => {
