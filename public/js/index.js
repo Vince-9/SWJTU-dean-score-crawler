@@ -30,6 +30,11 @@
                         return;
                     }
                 }
+                let emailPat = /.+@(qq|foxmail|126|163|gmail|outlook|hotmail)\.com$/i;
+                if (!emailPat.test(this.email.trim())) {
+                    alert('请检查你的邮箱地址，邮箱仅支持qq、foxmail、163、126、outlook、gamil');
+                    return;
+                }
                 axios.post('/GradeNotice', formData)
                     .then((result) => {
                         this.preventClick = false;
