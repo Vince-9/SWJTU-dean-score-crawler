@@ -152,6 +152,7 @@ function getDataFromLocationHref(cname) {
 async function getUserCount() {
     let uc = await axios.get('/grade-usercount');
     window.mainApp.userCount = uc.data.userCount;
+    console.log(`window.mainApp.userCount`);
 }
 
 window.onload = () => {

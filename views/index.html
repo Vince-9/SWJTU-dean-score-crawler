@@ -16,7 +16,7 @@
         <h1 id="logo">VIN94.CN</h1>
         <h2>SWJTU-成绩通知系统</h2>
         <h3>通过邮箱，第一时间获取最新成绩</h3>
-        <p v-if="userCount>0">当前用户数量：<b>{{userCount}}</b>人</p>
+        <p v-if="userCount>0">当前用户数量：<b v-text="userCount"></b>人</p>
         <div class="toogle">
             <button :class="['toogle-btn',{'act':toogleForm==0}]" @click="toToogleForm(0)">录入</button>
             <button :class="['toogle-btn',{'act':toogleForm==1}]" @click="toToogleForm(1)">验证码</button>
