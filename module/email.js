@@ -77,7 +77,7 @@ exports.sendMailDeleteUser = (email) => {
         subject: `【麦芽糖】你的账号因密码不正确而被删除`, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1>
         <h2>你的账号已从本系统中清除</h2>
-        <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a>重新录入</p>
+        <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grades</a>重新录入</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
