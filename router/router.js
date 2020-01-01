@@ -84,6 +84,12 @@ router.get('/grade-getuserinfo', (req, res) => {
         })
 })
 
+// 获取系统中的总用户数量
+router.get('/grade-usercount', async (req, res) => {
+    let userCount = await User.getUserCount();
+    res.send({ userCount: userCount });
+})
+
 //修改邮箱
 router.get('/grade-updateemail', (req, res) => {
     User.setUserEmail(req.session.userName, req.query.email)

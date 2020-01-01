@@ -12,7 +12,8 @@
             sid: '', //服务器返回的教务网的sid
             randString: '', //用户输入的验证码
             randCount: 0, //获取验证码的次数
-            coverText: '提交中'
+            coverText: '提交中',
+            userCount: 0 //系统中的用户数量
         },
         methods: {
             handleMainSubmitClick() {
@@ -146,4 +147,13 @@ function getDataFromLocationHref(cname) {
             return item.split('=')[1];
         }
     }
+}
+
+async function getUserCount() {
+    let uc = await axios.get('/grade-usercount');
+    window.mainApp.userCount = uc.userCount;
+}
+
+window.onload = () => {
+    getUserCount();
 }

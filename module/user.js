@@ -259,4 +259,18 @@ exports.setUserEmail = (userName, newEmail) => {
     })
 }
 
+// 获取系统总用户数量
+exports.getUserCount = () => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = 'SELECT COUNT(*) as uc FROM user_info';
+        connection.query(sqlLine, (err, res) => {
+            console.log(res);
+            resolve(res[0].uc);
+        })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+}
+
 // exports.addUser();
