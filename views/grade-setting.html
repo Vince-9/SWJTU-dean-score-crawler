@@ -30,7 +30,7 @@
             <p class="hello">{{username}}，你好 <button id="logout-btn" @click="handleLogoutBtnClick">退出登录</button></p>
             <P>你的邮箱：{{userInfo.email}}</P>
             <p>最新科目：<b>{{userInfo.latest_class_name}}</b></p>
-            <p>成绩查询服务：<b :class="{'status-on':userInfo.status,'status-off':userInfo.status}">{{userInfo.status==1?'已开启':'已关闭'}}</b></p>
+            <p>成绩查询服务：<b :class="{'status-on':userInfo.status==1,'status-off':userInfo.status==0}">{{userInfo.status==1?'已开启':'已关闭'}}</b></p>
             <input type="button" value="开启服务" v-if="userInfo.status==0" @click="handleTurnOnBtnClick">
             <input type="button" value="停止服务" class="shutdown-btn" v-if="userInfo.status==1" @click="handleShutdownBtnClick">
             <input type="button" id="setEmail" value="修改邮箱" @click="handleSetEmailBtnClick">
