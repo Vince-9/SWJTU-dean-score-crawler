@@ -10,6 +10,7 @@ exports.sendMailSuccessLogin = function (email, grades) {
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
@@ -32,6 +33,7 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><h2>你还没有完成课程评价，我无法查询你的成绩哦</h2>
+        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
@@ -54,6 +56,7 @@ exports.sendMailNewGrade = function (email, grades) {
         to: email, // list of receivers
         subject: `【新成绩通知】你有新的成绩：${grades.finalGrade}分`, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
@@ -78,6 +81,7 @@ exports.sendMailDeleteUser = (email) => {
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1>
         <h2>你的账号已从本系统中清除</h2>
         <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grades</a>重新录入</p>
+        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
