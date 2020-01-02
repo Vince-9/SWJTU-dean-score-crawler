@@ -49,12 +49,22 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
 }
 
 //新成绩时,发送邮件
-exports.sendMailNewGrade = function (email, grades) {
+/**
+ * @param{mode} 邮件标题模式，为0表示标题展示成绩，为1表示展示科目
+ */
+exports.sendMailNewGrade = function (email, grades, mode) {
     logger.log('新成绩通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
+    let emailTitle = `【新成绩通知】你有新的成绩：${grades.finalGrade}分`;
+    if (mode == 1) {
+        emailTitle = `【新成绩通知】你有新的成绩：${grades.className}`;
+    } else if (mode == 2) {
+        emailTitle = `【新成绩通知】你有新的成绩`;
+    }
+
     let mailOptions = {
         from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
         to: email, // list of receivers
-        subject: `【新成绩通知】你有新的成绩：${grades.finalGrade}分`, // Subject line
+        subject: emailTitle, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
         <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body

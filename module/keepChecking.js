@@ -28,7 +28,7 @@ function check(userInfo) {
                     return user.saveClassNameByUserName(userInfo.user_name, grades.className)
                         .then(() => {
                             // 发送邮件
-                            email.sendMailNewGrade(userInfo.email, grades);
+                            email.sendMailNewGrade(userInfo.email, grades, userInfo.email_title_mode);
                             // 更新内存中的用户数据
                             exports.reRunAUser(userInfo.user_name);
                         })
