@@ -6,7 +6,7 @@ let transporter = require('./sensitiveConfig').transporter;
 exports.sendMailSuccessLogin = function (email, grades) {
     logger.log('登录成功通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
     let mailOptions = {
-        from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
+        from: '"[麦芽糖]成绩通知系统" <vin9@foxmail.com>', // sender address
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
@@ -29,7 +29,7 @@ exports.sendMailSuccessLogin = function (email, grades) {
 exports.sendMailSuccessLoginWithoutComment = function (email) {
     logger.log('登录成功但未完成课程评价，发送邮件：', email);
     let mailOptions = {
-        from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
+        from: '"[麦芽糖]成绩通知系统" <vin9@foxmail.com>', // sender address
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><h2>你还没有完成课程评价，我无法查询你的成绩哦</h2>
@@ -54,15 +54,15 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
  */
 exports.sendMailNewGrade = function (email, grades, mode) {
     logger.log('新成绩通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
-    let emailTitle = `【新成绩通知】你有新的成绩：${grades.finalGrade}分`;
+    let emailTitle = `【新成绩】${grades.className.substr(0,4)}..${grades.finalGrade}分`;
     if (mode == 1) {
-        emailTitle = `【新成绩通知】你有新的成绩：${grades.className}`;
+        emailTitle = `【新成绩】你有新的成绩：${grades.className}`;
     } else if (mode == 2) {
-        emailTitle = `【新成绩通知】你有新的成绩`;
+        emailTitle = `【新成绩】你有新的成绩`;
     }
 
     let mailOptions = {
-        from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
+        from: '"[麦芽糖]成绩通知系统" <vin9@foxmail.com>', // sender address
         to: email, // list of receivers
         subject: emailTitle, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
@@ -85,7 +85,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 exports.sendMailDeleteUser = (email) => {
     logger.log('删除账号通知，发送邮件：', email);
     let mailOptions = {
-        from: '"[麦芽糖]成绩通知系统" <1779844498@qq.com>', // sender address
+        from: '"[麦芽糖]成绩通知系统" <vin9@foxmail.com>', // sender address
         to: email, // list of receivers
         subject: `【麦芽糖】你的账号因密码不正确而被删除`, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1>
