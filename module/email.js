@@ -54,7 +54,7 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
  */
 exports.sendMailNewGrade = function (email, grades, mode) {
     logger.log('新成绩通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
-    let emailTitle = `【新成绩】${grades.className.substr(0,4)}..${grades.finalGrade}分`;
+    let emailTitle = `【新成绩】${grades.finalGrade}分 ${grades.className}`;
     if (mode == 1) {
         emailTitle = `【新成绩】你有新的成绩：${grades.className}`;
     } else if (mode == 2) {
