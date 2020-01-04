@@ -2,18 +2,19 @@ const nodemailer = require('nodemailer');
 const logger = require('./logger');
 let transporter = require('./sensitiveConfig').transporter;
 
-const senderEmail = 'vincent_2021@126.com';// 发信用的邮箱
+// const senderEmail = 'vincent@vin94.cn';// 发信用的邮箱
 
 // 发送登录成功的邮件通知
 exports.sendMailSuccessLogin = function (email, grades) {
     logger.log('登录成功通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
     let mailOptions = {
-        from: `"[麦芽糖]成绩通知系统" <${senderEmail}>`, // sender address
+        from: `"[麦芽糖]成绩通知系统" `, // sender address
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
-        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
-        <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
+        验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        // <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
+        // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
     // send mail with defined transport object
@@ -32,12 +33,13 @@ exports.sendMailSuccessLogin = function (email, grades) {
 exports.sendMailSuccessLoginWithoutComment = function (email) {
     logger.log('登录成功但未完成课程评价，发送邮件：', email);
     let mailOptions = {
-        from: `"[麦芽糖]成绩通知系统" <${senderEmail}>`, // sender address
+        from: `"[麦芽糖]成绩通知系统" `, // sender address
         to: email, // list of receivers
         subject: '【登录成功】你已成功登录成绩通知系统', // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><h2>你还没有完成课程评价，我无法查询你的成绩哦</h2>
-        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
-        <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
+        验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        // <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
+        // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
     // send mail with defined transport object
@@ -66,12 +68,13 @@ exports.sendMailNewGrade = function (email, grades, mode) {
     }
 
     let mailOptions = {
-        from: `"[麦芽糖]成绩通知系统" <${senderEmail}>`, // sender address
+        from: `"[麦芽糖]成绩通知系统" `, // sender address
         to: email, // list of receivers
         subject: emailTitle, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
-        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
-        <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
+        验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        // <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
+        // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
 
     // send mail with defined transport object
@@ -90,17 +93,17 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 exports.sendMailDeleteUser = (email) => {
     logger.log('删除账号通知，发送邮件：', email);
     let mailOptions = {
-        from: `"[麦芽糖]成绩通知系统" <${senderEmail}>`, // sender address
+        from: `"[麦芽糖]成绩通知系统" `, // sender address
         to: email, // list of receivers
         subject: `【麦芽糖】你的账号因密码不正确而被删除`, // Subject line
         html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1>
         <h2>你的账号已从本系统中清除</h2>
-        <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grades</a>重新录入</p>
-        <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
-        <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
+        <p>如需继续使用，请重新录入</p>
+        验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        // <p>如需继续使用，请在<a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">vin94.cn/grades</a>重新录入</p>
+        // <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
+        // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
-
-    // send mail with defined transport object
     toSendEmail(email, mailOptions);
     // transporter.sendMail(mailOptions, (error, info) => {
     //     if (error) {
@@ -115,12 +118,26 @@ exports.sendMailDeleteUser = (email) => {
  * 发送邮件
  */
 function toSendEmail(email, mailOptions) {
-    transporter.sendMail(mailOptions, (error, info) => {
+    let from = '[麦芽糖]成绩通知系统" ';
+
+    mailOptions.from = from + transporter.ne126Email;//发信者的地址
+    transporter.ne126.sendMail(mailOptions, (error, info) => {
         if (error) {
-            logger.logErr('发送邮件失败:', email)
-            logger.log('发送邮件失败:', email)
+            logger.logErr('ne发送邮件失败:', email);
+            logger.log('ne发送邮件失败:', email);
             logger.logErr(error);
-            return console.log(error);
+            console.log(error);
+            // 126发信失败，改用腾讯企业邮箱发送
+            mailOptions.from = from + transporter.txEnterEmail;
+            transporter.txEnter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    logger.logErr('tx发送邮件失败:', email);
+                    logger.log('tx发送邮件失败:', email);
+                    logger.logErr(error);
+                    console.log(error);
+                }
+                console.log('发送邮件: %s', info.messageId);
+            })
         }
         console.log('发送邮件: %s', info.messageId);
         // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
