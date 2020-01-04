@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
 let transporter = require('./sensitiveConfig').transporter;
-const senderEmail = 'vincent_2021@126.com';
+
+const senderEmail = 'vincent_2021@126.com';// 发信用的邮箱
 
 // 发送登录成功的邮件通知
 exports.sendMailSuccessLogin = function (email, grades) {
@@ -16,13 +17,14 @@ exports.sendMailSuccessLogin = function (email, grades) {
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('发送邮件: %s', info.messageId);
-        // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    });
+    toSendEmail(email, mailOptions);
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //     if (error) {
+    //         return console.log(error);
+    //     }
+    //     console.log('发送邮件: %s', info.messageId);
+    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+    // });
 
 }
 
@@ -39,13 +41,14 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('发送邮件: %s', info.messageId);
-        // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    });
+    toSendEmail(email, mailOptions);
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //     if (error) {
+    //         return console.log(error);
+    //     }
+    //     console.log('发送邮件: %s', info.messageId);
+    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+    // });
 
 }
 
@@ -72,13 +75,14 @@ exports.sendMailNewGrade = function (email, grades, mode) {
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('发送邮件: %s', info.messageId);
-        // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    });
+    toSendEmail(email, mailOptions);
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //     if (error) {
+    //         return console.log(error);
+    //     }
+    //     console.log('发送邮件: %s', info.messageId);
+    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+    // });
 
 }
 
@@ -97,11 +101,28 @@ exports.sendMailDeleteUser = (email) => {
     };
 
     // send mail with defined transport object
+    toSendEmail(email, mailOptions);
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //     if (error) {
+    //         return console.log(error);
+    //     }
+    //     console.log('发送删除邮件: %s', info.messageId);
+    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+    // });
+}
+
+/**
+ * 发送邮件
+ */
+function toSendEmail(email, mailOptions) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
+            logger.logErr('发送邮件失败:', email)
+            logger.log('发送邮件失败:', email)
+            logger.logErr(error);
             return console.log(error);
         }
-        console.log('发送删除邮件: %s', info.messageId);
+        console.log('发送邮件: %s', info.messageId);
         // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
     });
 }
