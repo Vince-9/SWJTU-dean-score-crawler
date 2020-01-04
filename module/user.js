@@ -151,7 +151,6 @@ exports.fakeLogin = function (userName, password, sid, randString) {
         })
 }
 
-// exports.fakeLogin('2017114305','TWC1779844498','B7D75B7699CDD01CF2941B01B18F88C6','PGTE');
 
 exports.getAllDataFromMySql = function () {
     let sqlLine = `SELECT * FROM user_info`;
