@@ -17,7 +17,7 @@ exports.getWords = function (userName) {
         })
         .then((result) => {
             console.log(result.data);
-            if (result.data.words_result[0]) {
+            if (result.data.words_result && result.data.words_result[0]) {
                 return result.data.words_result[0].words;
             } else {
                 return 'NULL';
