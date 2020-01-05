@@ -60,7 +60,6 @@ function getDataFromHTML(data) {
     $('table#table3 tbody tr:nth-child(2) td:nth-child(7)').each((i, elem) => {
         let finalGrade = elem.children[0].data; //最终成绩
         let pat = /[0-9]+\.[0-9]+/;
-        let str = '123';
 
         //由于数据格式很奇怪,必须从中清洗出最终成绩
         results.finalGrade = parseFloat(finalGrade.substr(finalGrade.search(pat), 5));

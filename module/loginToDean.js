@@ -53,7 +53,7 @@ exports.login2 = async function (userName, password) {
         let sid = await getImg.getImgAndSession(userName);
         let ranString = await imgToString.getWords(userName);
         if (ranString === 'NULL' || ranString.length !== 4) {
-            await util.sleep(Math.random() * 1000);
+            await util.sleep(Math.random() * 5000 + 1000);
             continue;
         }
         let loginRes = await user.fakeLogin(userName, password, sid, ranString);
