@@ -22,21 +22,43 @@ exports.mysql_config = {
 };
 
 //email配置
-exports.transporter = nodemailer.createTransport({
-    // host: 'smtp.ethereal.email',
-    service: 'qq', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
-    port: 465, // SMTP 端口
-    secureConnection: true, // 使用了 SSL
-    auth: {
-        user: '@xx.com', //你的邮箱
-        // 这里密码不是qq密码，是你设置的smtp授权码
-        pass: '',
-    }
-});
+//在用户多了以后，单个邮箱不够用了，可能会出现发信限制，于是改用两个邮箱账号（优先使用ne126那个）
+exports.transporter = {
+    txEnter: nodemailer.createTransport({
+        host: 'smtp.exmail.qq.com',
+        // service: 'mxhichina', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+        port: 465, // SMTP 端口
+        secureConnection: true, // 使用了 SSL
+        auth: {
+            user: '', //你的邮箱
+            // 这里密码不是qq密码，是你设置的smtp授权码
+            pass: ''
+        }
+    }),
+    txEnterEmail: 'example@vin94.cn',
+    ne126: nodemailer.createTransport({
+        // host: 'smtp.ethereal.email',
+        service: '126', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+        port: 465, // SMTP 端口
+        secureConnection: true, // 使用了 SSL
+        auth: {
+            user: 'example@126.com', //你的邮箱
+            // 这里密码不是qq密码，是你设置的smtp授权码
+            pass: ''
+        }
+    }),
+    ne126Email: 'example@126.com'
+}
 
+// 百度API的token，每隔一段时间（几天）就要重新获取一次
 exports.baiduApi = {
     'access_token': ''
-}
+};
+
+// 在使用百度识别文字的API时用到这个，改成你的公网IP或者域名即可。
+// 如果你的不是公网IP，就不能采用URL上传图片的方式，得换成base64编码来发送图片，详情参考
+// https://ai.baidu.com/docs#/OCR-API-GeneralBasic/top
+exports.domain = 'vin94.cn';
 ```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能

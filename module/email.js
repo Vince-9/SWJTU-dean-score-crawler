@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 const logger = require('./logger');
 let transporter = require('./sensitiveConfig').transporter;
 
-// const senderEmail = 'vincent@vin94.cn';// 发信用的邮箱
 
 // 发送登录成功的邮件通知
 exports.sendMailSuccessLogin = function (email, grades) {
@@ -19,13 +18,6 @@ exports.sendMailSuccessLogin = function (email, grades) {
 
     // send mail with defined transport object
     toSendEmail(email, mailOptions);
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         return console.log(error);
-    //     }
-    //     console.log('发送邮件: %s', info.messageId);
-    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    // });
 
 }
 
@@ -44,13 +36,6 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
 
     // send mail with defined transport object
     toSendEmail(email, mailOptions);
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         return console.log(error);
-    //     }
-    //     console.log('发送邮件: %s', info.messageId);
-    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    // });
 
 }
 
@@ -79,13 +64,6 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 
     // send mail with defined transport object
     toSendEmail(email, mailOptions);
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         return console.log(error);
-    //     }
-    //     console.log('发送邮件: %s', info.messageId);
-    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    // });
 
 }
 
@@ -105,13 +83,7 @@ exports.sendMailDeleteUser = (email) => {
         // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
     };
     toSendEmail(email, mailOptions);
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //     if (error) {
-    //         return console.log(error);
-    //     }
-    //     console.log('发送删除邮件: %s', info.messageId);
-    //     // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    // });
+
 }
 
 /**
