@@ -9,6 +9,7 @@ const util = require('./util');
 
 let _sid = 'JSESSIONID=';
 
+// 该方法已弃用，改用login2
 exports.login = function (userName, password) {
     getImg.getImgAndSession(userName)
         .then((sid) => {
@@ -40,12 +41,18 @@ exports.login = function (userName, password) {
 }
 
 let loginUser = {};//正在尝试登陆的用户，防止一个用户重复尝试
+let loginQue = new Set();// 正在排队等待登录的用户
 /**
  * 登录到教务网
  */
 exports.login2 = async function (userName, password) {
     if (loginUser[userName])
         return;
+    else if (Object.keys(loginUser).length >= 3) {
+        // 同时只能有3名用户在处于登录状态
+        Set.add(userName + '$&_&*' + password);//将用户名和密码保存到队列中，中间特殊字符用于分割
+        return;
+    }
     else
         loginUser[userName] = true;
 
@@ -61,6 +68,15 @@ exports.login2 = async function (userName, password) {
             //登录成功
             keepChecking.reRunAUser(userName);
             delete loginUser[userName];
+
+            // 如果队列中有等待登录的用户，则将其出队
+            if ([...loginQue].length > 0) {
+                let nameAndPw = [...loginQue][0];
+                loginQue.delete(nameAndPw);
+                nameAndPw = nameAndPw.split('$&_&*');
+                exports.login2(nameAndPw[0], nameAndPw[1]);// 刚刚出队的用户，开始登录
+            }
+
             return loginRes.data;
         } else if (loginRes.data.loginMsg.indexOf('验证码') >= 0) {
             // 验证码错误,再试
@@ -69,6 +85,15 @@ exports.login2 = async function (userName, password) {
             // 可能是密码错误
             console.log(`${userName}:密码错误`);
             delete loginUser[userName];
+
+            // 如果队列中有等待登录的用户，则将其出队
+            if ([...loginQue].length > 0) {
+                let nameAndPw = [...loginQue][0];
+                loginQue.delete(nameAndPw);
+                nameAndPw = nameAndPw.split('$&_&*');
+                exports.login2(nameAndPw[0], nameAndPw[1]);// 刚刚出队的用户，开始登录
+            }
+
             return loginRes.data;
         }
     }
