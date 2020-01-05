@@ -65,6 +65,34 @@ exports.domain = 'vin94.cn';
 在网页端录入你的教务账号、密码，自动查询成绩，在成绩发生更新时，1分钟之内通过邮件将分数和科目告知你。
 ## 文件
 
+├─ module // 自定义的模块
+┃├─ email.js // 发送邮件
+┃├─ getImg.js // 从教务网获取验证码图片及SESSIONID
+┃├─ getLatestGrade.js // 查询成绩
+┃├─ handleConnection.js // 处理mysql连接
+┃├─ imgToString.js // 调用百度文字识别API，识别验证码
+┃├─ keepChecking.js // 控制循环查询新成绩
+┃├─ logger.js // 写日志
+┃├─ loginToDean.js // 登录到教务网
+┃├─ sensitiveConfig.js // 配置文件，包含敏感信息
+┃├─ user.js // 用户模块
+┃└─ util.js // 一些小工具
+├─ public
+┃├─ css
+┃├─ data
+┃┃├─ randImg // 验证码图片的目录
+┃├─ js
+├─ router
+┃└─ router.js // 路由控制
+├─ views
+┃├─ grade-setting.html
+┃├─ index.html
+┃└─ quest.html
+├─ .gitignore
+├─ app.js // 程序入口
+├─ package.json
+└─ README.md
+
 ## 为什么要做这个
 每到期末季，我校学子总是少不了不断地登录教务网，一遍又一遍输入枯燥无味的验证码，不断地刷新成绩查询页面，期盼着老师快点出分。
 奈何我校没有别人学校的公众号成绩通知，只能自己想一个解决方案来实现最新成绩的通知了。
