@@ -49,7 +49,8 @@ exports.login2 = async function (userName, password) {
     if (loginUser[userName])
         return;
     else if (Object.keys(loginUser).length >= 3) {
-        // 同时只能有3名用户在处于登录状态
+        // 同时只能有3名用户在登录中
+        console.log(`\n已有3名用户在登录中\n`);
         Set.add(userName + '$&_&*' + password);//将用户名和密码保存到队列中，中间特殊字符用于分割
         return;
     }
