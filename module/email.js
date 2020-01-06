@@ -50,7 +50,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
      * 
      */
     if (/职场|英语|学术|视听说|高级|营销/ig.test(grades.className)) {
-        emailTitle = `【You have new grades!】${grades.finalGrade}分`;
+        emailTitle = `【You have new grades!】${grades.finalGrade}`;
         grades.className = 'I cannot display your subject name beacuse of the spam system. Please log in to the Dean to check.'
     }
     if (mode == 1) {
@@ -63,7 +63,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
         from: `"[麦芽糖]成绩通知系统" `, // sender address
         to: email, // list of receivers
         subject: emailTitle, // Subject line
-        html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>当有新成绩时，我会第一时间通知你哒</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+        html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
         验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
         // <p>如有疑问或建议，欢迎加群：<b>821850193</b>来讨论</p>
         // <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
