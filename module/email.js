@@ -91,27 +91,31 @@ exports.sendMailDeleteUser = (email) => {
  */
 function toSendEmail(email, mailOptions) {
     let from = '[麦芽糖]成绩通知系统" ';
+    try {
+        mailOptions.from = from + transporter.ne126Email;//发信者的地址
+        transporter.ne126.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                logger.logErr('ne发送邮件失败:', email);
+                logger.log('ne发送邮件失败:', email);
+                logger.logErr(error);
+                console.log(error);
+                // 126发信失败，改用腾讯企业邮箱发送
+                mailOptions.from = from + transporter.txEnterEmail;
+                transporter.txEnter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        logger.logErr('tx发送邮件失败:', email);
+                        logger.log('tx发送邮件失败:', email);
+                        logger.logErr(error);
+                        console.log(error);
+                    }
+                    console.log('发送邮件: %s', info.messageId);
+                })
+            }
+            console.log('发送邮件: %s', info.messageId);
+            // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
+        });
+    } catch (error) {
+        console.log(`发邮件失败：`, error);
+    }
 
-    mailOptions.from = from + transporter.ne126Email;//发信者的地址
-    transporter.ne126.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            logger.logErr('ne发送邮件失败:', email);
-            logger.log('ne发送邮件失败:', email);
-            logger.logErr(error);
-            console.log(error);
-            // 126发信失败，改用腾讯企业邮箱发送
-            mailOptions.from = from + transporter.txEnterEmail;
-            transporter.txEnter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    logger.logErr('tx发送邮件失败:', email);
-                    logger.log('tx发送邮件失败:', email);
-                    logger.logErr(error);
-                    console.log(error);
-                }
-                console.log('发送邮件: %s', info.messageId);
-            })
-        }
-        console.log('发送邮件: %s', info.messageId);
-        // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
-    });
 }
