@@ -51,7 +51,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
      * 
      */
     if (/职场|英语|学术|视听说|高级|营销/ig.test(grades.className)) {
-        emailTitle = `[You have new grades!]${grades.finalGrade}`;
+        emailTitle = `[You have [n-e-w] grades]${grades.finalGrade}`;
         grades.className = 'I cannot display your subject name beacuse of the spam system. Please log in to the Dean to check.'
         mailOptions = {
             from: `"[Vincent] GPA" `, // sender address
