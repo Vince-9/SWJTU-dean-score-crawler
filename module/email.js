@@ -45,32 +45,32 @@ exports.sendMailSuccessLoginWithoutComment = function (email) {
  */
 exports.sendMailNewGrade = function (email, grades, mode) {
     logger.log('新成绩通知，发送邮件：', email, ' 成绩：', grades.finalGrade);
-    let emailTitle = `【新成绩】${grades.finalGrade}分 ${grades.className}`;
+    let emailTitle = `[n-e-w grades]${grades.finalGrade}分 ${grades.className}`;
     let mailOptions = null;
     /**
      * 
      */
-    // if (/职场|英语|学术|视听说|高级|营销/ig.test(grades.className)) {
-    //     emailTitle = `[You have [n-e-w] grades]${grades.finalGrade}`;
-    //     grades.className = 'I cannot display your subject name beacuse of the spam system. Please log in to the Dean to check.'
-    //     mailOptions = {
-    //         from: `"[Vincent] GPA" `, // sender address
-    //         to: email, // list of receivers
-    //         subject: emailTitle, // Subject line
-    //         html: `<h1>Welcome to Vincent's email notification system</h1><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>final grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
-    //         //验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
-    //     };
-    // } else {
-    mailOptions = {
-        from: `"[麦芽糖]成绩通知系统" `, // sender address
-        to: email, // list of receivers
-        //subject: emailTitle, // Subject line
-        subject: `${grades.finalGrade}分`,
-        html: ``
-        // html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
-        // 验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
-    };
-    // }
+    if (/职场|英语|学术|视听说|高级|营销/ig.test(grades.className)) {
+        emailTitle = `[You have [n-e-w] grades]${grades.finalGrade}`;
+        grades.className = 'I cannot display your subject name beacuse of the spam system. Please log in to the Dean to check.'
+        mailOptions = {
+            from: `"[Vincent] GPA" `, // sender address
+            to: email, // list of receivers
+            subject: emailTitle, // Subject line
+            html: `<h1>Welcome to Vincent's email notification system</h1><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>final grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
+            //验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        };
+    } else {
+        mailOptions = {
+            from: `"[麦芽糖]成绩通知系统" `, // sender address
+            to: email, // list of receivers
+            subject: emailTitle, // Subject line
+            // subject: `${grades.finalGrade}分`,
+            // html: ``
+            html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+            验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+        };
+    }
 
 
     if (mode == 1) {
