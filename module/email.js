@@ -107,11 +107,14 @@ function toSendEmail(email, mailOptions) {
                         logger.log('tx发送邮件失败:', email);
                         logger.logErr(error);
                         console.log(error);
+                    } else {
+                        console.log('发送邮件: %s', info.messageId);
                     }
-                    console.log('发送邮件: %s', info.messageId);
                 })
             }
-            console.log('发送邮件: %s', info.messageId);
+            else {
+                console.log('发送邮件: %s', info.messageId);
+            }
             // Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
         });
     } catch (error) {
