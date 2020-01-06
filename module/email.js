@@ -54,7 +54,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
         emailTitle = `[You have new grades!]${grades.finalGrade}`;
         grades.className = 'I cannot display your subject name beacuse of the spam system. Please log in to the Dean to check.'
         mailOptions = {
-            from: `"[麦芽糖]成绩通知系统" `, // sender address
+            from: `"[Vincent] GPA" `, // sender address
             to: email, // list of receivers
             subject: emailTitle, // Subject line
             html: `<h1>Welcome to Vincent's email notification system</h1><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>final grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
