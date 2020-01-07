@@ -3,6 +3,7 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
+const logger = require('./logger');
 // const login = require('./loginToDean');
 
 //查询成绩页
@@ -19,8 +20,12 @@ exports.getGradeBySid = function (sid) {
                 } else if (html.indexOf('还没有完成评价') >= 0) {
                     console.log('还没有完成评价');
                 }
-                else if (html.indexOf('您还未登陆') >= 0 || html.indexOf('权限') >= 0) {
+                else if (html.indexOf('您还未登陆') >= 0) {
                     console.log(`getLatestGrade.js:登录已失效`);
+                    reject('未登录');
+                } else if (html.indexOf('权限') >= 0) {
+                    console.log(html);
+                    logger.logErr('返回的页面是无权限，开始尝试登录');
                     reject('未登录');
                 }
                 else {
