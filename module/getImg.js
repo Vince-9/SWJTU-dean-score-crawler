@@ -40,5 +40,8 @@ exports.getImgAndSession = function (userName) {
 
 
         })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
