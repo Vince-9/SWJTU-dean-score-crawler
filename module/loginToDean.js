@@ -50,7 +50,7 @@ exports.login2 = async function (userName, password) {
 		return;
 	else if (Object.keys(loginUser).length >= 3) {
 		// 同时只能有3名用户在登录中
-		console.log(`\n已有3名用户在登录中\n`);
+		console.log(`已有3名用户在登录中`);
 		loginQue.add(userName + '$&_&*' + password);//将用户名和密码保存到队列中，中间特殊字符用于分割
 		return;
 	}
@@ -71,7 +71,7 @@ exports.login2 = async function (userName, password) {
 			delete loginUser[userName];
 
 			// 如果队列中有等待登录的用户，则将其出队
-			if ([...loginQue].length > 0) {
+			if (loginQue.size > 0) {
 				console.log(`队列中有等待登录的用户，轮到下一个`);
 				let nameAndPw = [...loginQue][0];
 				loginQue.delete(nameAndPw);
