@@ -11,7 +11,7 @@ const url = 'http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=stud
 exports.getGradeBySid = function (sid) {
     return getGradePage(sid)
         .then((results) => {
-            return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
                 let html = results.data;
                 if (html.indexOf('课程名称') >= 0) {
                     //查询成功的页面的数据
@@ -19,17 +19,17 @@ exports.getGradeBySid = function (sid) {
                 } else if (html.indexOf('还没有完成评价') >= 0) {
                     console.log('还没有完成评价');
                 }
-                else if (html.indexOf('您还未登陆') >= 0) {
+                else if (html.indexOf('您还未登陆') >= 0 || html.indexOf('权限') >= 0) {
                     console.log(`getLatestGrade.js:登录已失效`);
                     reject('未登录');
                 }
-                else{
+                else {
                     console.log(`getLatestGrade.js:未知错误`);
                     reject('未知错误');
                     console.log(html);
                 }
             })
-            
+
         })
 }
 

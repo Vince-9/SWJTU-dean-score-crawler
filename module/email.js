@@ -67,10 +67,10 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 			subject: emailTitle, // Subject line
 			// subject: `${grades.finalGrade}分`,
 			// html: ``
-			// html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+			html: `<h1>欢迎来到麦芽糖的邮件通知系统</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
+			      验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
+			// html: `<h1>非常抱歉，今天这边出现了一些状况，导致今天的通知出现了数小时的延迟</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
 			//       验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
-			html: `<h1>非常抱歉，今天这边出现了一些状况，导致今天的通知出现了数小时的延迟</h1><h2>明天和成绩，你永远不知道哪一个先来。</h2><p>最新成绩为：</p><p>${grades.className}</p><p>最终成绩：<b>${grades.finalGrade}</b></p><p>期末成绩：<b>${grades.paperGrade}</b></p><p>平时成绩：<b>${grades.regularGrade}</b></p>
-            验证码：${Math.ceil(Math.random() * 10000)} 这个验证码是为了反垃圾邮件的，并没有什么用`
 		};
 	}
 
