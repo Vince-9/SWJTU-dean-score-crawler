@@ -74,6 +74,13 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 		};
 	}
 
+	// 备用的选项
+	let backupMailOptions = {
+		from: `"[Vincent] GPA" `, // sender address
+		to: email, // list of receivers
+		subject: `[You have [n.e.w] grades]${grades.finalGrade}`, // Subject line
+		html: `<h1>Welcome to Vincent's GPA notification system</h1><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>paper grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
+	};
 
 	if (mode == 1) {
 		emailTitle = `【新成绩】你有新的成绩：${grades.className}`;
@@ -84,7 +91,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 	console.log(mailOptions.html);
 
 	// send mail with defined transport object
-	toSendEmail(email, mailOptions);
+	toSendEmail(email, mailOptions, backupMailOptions);
 
 }
 
@@ -110,7 +117,7 @@ exports.sendMailDeleteUser = (email) => {
 /**
  * 发送邮件
  */
-function toSendEmail(email, mailOptions) {
+function toSendEmail(email, mailOptions, backupMailOptions) {
 	let from = '[麦芽糖]成绩通知系统" ';
 	try {
 		mailOptions.from = from + transporter.ne126Email;//发信者的地址
@@ -121,6 +128,8 @@ function toSendEmail(email, mailOptions) {
 				logger.logErr(error);
 				console.log(error);
 				// 126发信失败，改用腾讯企业邮箱发送
+				if (backupMailOptions)
+					mailOptions = backupMailOptions;// 切换成英文版
 				mailOptions.from = from + transporter.txEnterEmail;
 				transporter.txEnter.sendMail(mailOptions, (error, info) => {
 					if (error) {
