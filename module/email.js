@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
+const fs = require('fs');
 let transporter = require('./sensitiveConfig').transporter;
 
 
@@ -91,7 +92,22 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 	console.log(mailOptions.html);
 
 	// send mail with defined transport object
-	toSendEmail(email, mailOptions, backupMailOptions);
+	toSendEmail(email, mailOptions, backupMailOptions)
+		.catch(err => {
+			// 发送邮件失败
+			fs.readFile('./failedEmail.json', 'utf8', (err, data) => {
+				if (err) {
+					console.log(`备份邮件失败：failedEmail.json文件读取失败`);
+					return;
+				}
+				let emailBackup = {
+					email: email,
+					grades: grades
+				}
+				data = JSON.parse(data).push(emailBackup);
+				fs.writeFile('./failedEmail.json', JSON.stringify(data), (err) => { if (err) console.log(err); });
+			})
+		})
 
 }
 
@@ -111,15 +127,14 @@ exports.sendMailDeleteUser = (email) => {
 		// <p>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></p>` // html body
 	};
 	toSendEmail(email, mailOptions);
-
 }
 
 /**
  * 发送邮件
  */
 function toSendEmail(email, mailOptions, backupMailOptions) {
-	let from = '[麦芽糖]成绩通知系统" ';
-	try {
+	return new Promise((resolve, reject) => {
+		let from = '[麦芽糖]成绩通知系统" ';
 		mailOptions.from = from + transporter.ne126Email;//发信者的地址
 		transporter.ne126.sendMail(mailOptions, (error, info) => {
 			if (error) {
@@ -137,18 +152,24 @@ function toSendEmail(email, mailOptions, backupMailOptions) {
 						logger.log('tx发送邮件失败:', email);
 						logger.logErr(error);
 						console.log(error);
+						reject(err);
 					} else {
 						console.log('发送邮件: %s', info.messageId);
+						resolve;
 					}
 				})
 			}
 			else {
 				console.log('发送邮件: %s', info.messageId);
+				resolve();
 			}
 			// Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
 		});
-	} catch (error) {
-		console.log(`发邮件失败：`, error);
-	}
+	})
+
+
+}
+
+function failedEmailBackup() {
 
 }

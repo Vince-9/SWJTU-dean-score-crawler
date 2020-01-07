@@ -6,3 +6,4 @@ handleConnection.js
 sensitiveConfig.js
 log.txt
 logs/
+failedEmail.json
