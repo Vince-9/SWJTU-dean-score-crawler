@@ -22,7 +22,6 @@ exports.mysql_config = {
 };
 
 //email配置
-<<<<<<< HEAD
 exports.transporter = nodemailer.createTransport({
     // host: 'smtp.ethereal.email',
     service: 'qq', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
@@ -34,9 +33,7 @@ exports.transporter = nodemailer.createTransport({
         pass: '',
     }
 });
-<<<<<<< HEAD
-=======
-=======
+
 //在用户多了以后，单个邮箱不够用了，可能会出现发信限制，于是改用两个邮箱账号（优先使用ne126那个）
 exports.transporter = {
     txEnter: nodemailer.createTransport({
@@ -69,17 +66,12 @@ exports.transporter = {
 // 百度API的token，每隔一段时间（几天）就要重新获取一次
 exports.baiduApi = {
     'access_token': ''
-<<<<<<< HEAD
-}
->>>>>>> b7e3fd989cce92c2aaaeb1109350fc91d94d8148
-=======
 };
 
 // 在使用百度识别文字的API时用到这个，改成你的公网IP或者域名即可。
 // 如果你的不是公网IP，就不能采用URL上传图片的方式，得换成base64编码来发送图片，详情参考
 // https://ai.baidu.com/docs#/OCR-API-GeneralBasic/top
 exports.domain = 'vin94.cn';
->>>>>>> 56fdfe8c1105a9b27a7821bf587751e977c4ae02
 ```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能
