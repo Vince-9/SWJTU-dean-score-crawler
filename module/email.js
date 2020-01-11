@@ -107,9 +107,13 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 					email: email,
 					grades: grades
 				}
-				data = JSON.parse(data).push(emailBackup);
+				data = JSON.parse(data);
+				data.push(emailBackup);
 				fs.writeFile('./failedEmail.json', JSON.stringify(data), (err) => { if (err) console.log(err); });
 			})
+		})
+		.catch(err => {
+			console.log(err);
 		})
 
 }
