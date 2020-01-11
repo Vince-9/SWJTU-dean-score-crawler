@@ -61,7 +61,6 @@ exports.transporter = {
     }),
     ne126Email: 'example@126.com'
 }
->>>>>>> 56fdfe8c1105a9b27a7821bf587751e977c4ae02
 
 // 百度API的token，每隔一段时间（几天）就要重新获取一次
 exports.baiduApi = {
