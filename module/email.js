@@ -97,20 +97,27 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 	// send mail with defined transport object
 	toSendEmail(email, mailOptions, backupMailOptions)
 		.catch(err => {
-			// 发送邮件失败
-			fs.readFile('./failedEmail.json', 'utf8', (err, data) => {
-				if (err) {
-					console.log(`备份邮件失败：failedEmail.json文件读取失败`);
-					return;
-				}
-				let emailBackup = {
-					email: email,
-					grades: grades
-				}
-				data = JSON.parse(data);
-				data.push(emailBackup);
-				fs.writeFile('./failedEmail.json', JSON.stringify(data), (err) => { if (err) console.log(err); });
-			})
+			try {
+				// 发送邮件失败
+				fs.readFile('./failedEmail.json', 'utf8', (err, data) => {
+					if (err) {
+						console.log(`备份邮件失败：failedEmail.json文件读取失败`);
+						return;
+					}
+					let emailBackup = {
+						email: email,
+						grades: grades
+					}
+					data = JSON.parse(data);
+					if (data instanceof Array) {
+						data.push(emailBackup);
+						fs.writeFile('./failedEmail.json', JSON.stringify(data), (err) => { if (err) console.log(err); });
+					}
+				})
+			} catch (error) {
+				console.log(error);
+			}
+
 		})
 		.catch(err => {
 			console.log(err);
