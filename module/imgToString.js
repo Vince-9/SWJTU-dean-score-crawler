@@ -8,7 +8,7 @@ const config = require('./sensitiveConfig');
 exports.getWords = function (userName) {
     return axios.post(`https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic?access_token= ${config.baiduApi.access_token}`,
         querystring.stringify({
-            url: `http://vin94.cn/public/data/randImg/${userName}.jpg?test=${new Date().getTime()}`,
+            url: `http://${config.domain}/public/data/randImg/${userName}.jpg?test=${new Date().getTime()}`
         }),
         {
             headers: {
@@ -16,7 +16,16 @@ exports.getWords = function (userName) {
             }
         })
         .then((result) => {
-            console.log(result);
-            return result.data.words_result[0].words;
-        });
+            console.log(result.data);
+            if (result.data.words_result && result.data.words_result[0]) {
+                return result.data.words_result[0].words;
+            } else {
+                return 'NULL';
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
+
+

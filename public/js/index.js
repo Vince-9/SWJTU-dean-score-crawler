@@ -12,11 +12,13 @@
             sid: '', //服务器返回的教务网的sid
             randString: '', //用户输入的验证码
             randCount: 0, //获取验证码的次数
-            coverText: '提交中'
+            coverText: '提交中',
+            userCount: 0 //系统中的用户数量
         },
         methods: {
             handleMainSubmitClick() {
                 if (this.preventClick) return; //防止重复提交
+                this.randCount = 0; //重置验证码获取次数
                 this.preventClick = true;
                 let formData = {
                     username: this.username.trim(),
@@ -27,8 +29,15 @@
                 for (let item in formData) {
                     if (formData[item].length == 0) {
                         alert('表单不完整');
+                        this.preventClick = false;
                         return;
                     }
+                }
+                let emailPat = /.+@(qq|foxmail|126|163|gmail|outlook|hotmail)\.com$/i;
+                if (!emailPat.test(this.email.trim())) {
+                    alert('请检查你的邮箱地址，邮箱仅支持qq、foxmail、163、126、outlook、gamil');
+                    this.preventClick = false;
+                    return;
                 }
                 axios.post('/GradeNotice', formData)
                     .then((result) => {
@@ -71,6 +80,7 @@
                             this.preventClick = false;
                         })
                         .catch((err) => {
+                            this.preventClick = false;
                             console.log(err);
                         })
                 }
@@ -137,4 +147,14 @@ function getDataFromLocationHref(cname) {
             return item.split('=')[1];
         }
     }
+}
+
+async function getUserCount() {
+    let uc = await axios.get('/grade-usercount');
+    window.mainApp.userCount = uc.data.userCount;
+    console.log(`window.mainApp.userCount`);
+}
+
+window.onload = () => {
+    getUserCount();
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>毛概选择题</title>
+    <link rel="stylesheet" href="../public/css/quest.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+</head>
+
+<body>
+    <h1>@麦芽糖</h1>
+    <div id="mainApp">
+        <div class="quest-item" v-for="(item, index) in questData">
+            <p class="quest">{{ index+'. '+item.question }}</p>
+            <input type="radio" name="" id="">A.{{item.A}}<br>
+            <input type="radio" name="" id="">B.{{item.B}}<br>
+            <input type="radio" name="" id="">C.{{item.C}}<br>
+            <input type="radio" name="" id="">D.{{item.D}}<br>
+            <input type="button" class="show-ans-btn" value="查看答案" :data-ans="item.ans" @click="handleShowAnsClick">
+        </div>
+    </div>
+
+    <script src="../public/js/选择题1.js"></script>
+    <script src="../public/js/quest.js"></script>
+</body>
+
+</html>

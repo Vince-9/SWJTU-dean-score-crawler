@@ -1,6 +1,8 @@
 const connection = require('./handleConnection').connection;
 const axios = require('axios');
 const querystring = require('querystring');
+const logger = require('./logger');
+const email = require('./email');
 
 //添加新用户
 exports.addUser = function (userName, password, email) {
@@ -13,7 +15,7 @@ exports.addUser = function (userName, password, email) {
                     return;
                 }
                 //将用户信息插入表中
-                let sqlLine = `INSERT INTO user_info (user_name,password, email) VALUES( ? , ?, ?)`;
+                let sqlLine = `INSERT INTO user_info (user_name,password, email, status) VALUES( ? , ?, ?, 1)`;
                 connection.query(sqlLine, [userName, password, email], function (error, results, fields) {
                     if (error) _reject(error, '信息注册失败');
                     _resolve(results);
@@ -100,6 +102,22 @@ exports.fakeLogin = function (userName, password, sid, randString) {
         .then((_result) => {
             results = _result;
             console.log('fakeLogin: ', results.data);
+            let loginMsg = results.data.loginMsg;
+            if (loginMsg.indexOf('密码') >= 0 || loginMsg.indexOf('用户不存在') >= 0) {
+                // 密码错误或用户不存在
+                exports.findUserByName(userName)
+                    .then(res => {
+                        exports.deleteUserByUsername(userName);
+                        if (res[0])
+                            email.sendMailDeleteUser(res[0].email);
+                        logger.log('删除了用户：', userName, JSON.stringify(res));
+                    })
+                    .catch(err => {
+                        exports.deleteUserByUsername(userName);
+                        console.log(err);
+                    })
+                return;
+            }
 
             return axios.post('http://dean.vatuu.com/vatuu/UserLoadingAction', querystring.stringify({
                 "url": "http://dean.vatuu.com/vatuu/UserLoadingAction",
@@ -125,15 +143,32 @@ exports.fakeLogin = function (userName, password, sid, randString) {
 
         })
         .then((res) => {
-            console.log('模拟登录: ', res.data);
+            console.log('模拟登录');
             return results;
+        })
+        .catch(err => {
+            console.log(err);
         })
 }
 
-// exports.fakeLogin('2017114305','TWC1779844498','B7D75B7699CDD01CF2941B01B18F88C6','PGTE');
 
 exports.getAllDataFromMySql = function () {
     let sqlLine = `SELECT * FROM user_info`;
+
+    return new Promise((resolve, reject) => {
+        connection.query(sqlLine, (err, results) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(results);
+        })
+
+    })
+}
+
+//获取所有status不为0的信息
+exports.getAllNoShutdownDataFromMySql = function () {
+    let sqlLine = `SELECT * FROM user_info WHERE status <> 0`;
 
     return new Promise((resolve, reject) => {
         connection.query(sqlLine, (err, results) => {
@@ -154,6 +189,87 @@ exports.getUserInfoFromMySqlBySid = function (sid) {
             resolve(results[0]);
         })
     })
+}
+
+exports.deleteUserByUsername = function (userName) {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `DELETE FROM user_info WHERE user_name = ?`;
+        connection.query(sqlLine, [userName], (err, results) => {
+            if (err) reject(err);
+            resolve(results);
+        })
+    })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+/**
+ * 在修改信息页登录
+ */
+exports.loginToHere = (req, res) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `SELECT * FROM user_info WHERE user_name = ? AND password = ?`;
+        connection.query(sqlLine, [req.body.userName, req.body.password], (err, qres) => {
+            if (err) console.log(err);
+            if (!qres[0]) {
+                res.send('');
+                return;
+            }
+            if (qres[0].user_name == req.body.userName) {
+                req.session.isLogin = 1;
+                req.session.userName = qres[0].user_name;
+                req.session.password = qres[0].password;
+                req.session.email = qres[0].email;
+                qres[0].isLogin = 1;
+                res.send(qres[0]);
+            }
+        })
+    })
+        .catch(err => {
+            console.log(err);
+            res.send({ err: '错误' });
+        })
+}
+
+exports.setUserStatus = (userName, status) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `UPDATE user_info SET status = ? WHERE user_name = ?`;
+        connection.query(sqlLine, [status, userName], (err, qres) => {
+            if (err) {
+                console.log(err);
+                reject({ status: 0 });
+            }
+            resolve({ status: 1 });
+        })
+    })
+}
+
+exports.setUserEmail = (userName, newEmail) => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = `UPDATE user_info SET email = ? WHERE user_name = ?`;
+        connection.query(sqlLine, [newEmail, userName], (err, qres) => {
+            if (err) {
+                console.log(err);
+                reject({ status: 0 });
+            }
+            resolve({ status: 1 });
+        })
+    })
+}
+
+// 获取系统总用户数量
+exports.getUserCount = () => {
+    return new Promise((resolve, reject) => {
+        let sqlLine = 'SELECT COUNT(*) as uc FROM user_info';
+        connection.query(sqlLine, (err, res) => {
+            console.log(res);
+            resolve(res[0].uc);
+        })
+    })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // exports.addUser();

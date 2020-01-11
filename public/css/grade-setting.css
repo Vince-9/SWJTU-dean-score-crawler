@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="button"] {
+    transition: transform .2s;
+}
+
+input[type="button"]:active {
+    transform: scale(.8);
+}
+
+input[type="button"]:hover {
+    opacity: .8;
+}
+
+#cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background: rgba(121, 121, 231, 0.7);
+    width: 100vw;
+    height: 100vh;
+}
+
+#cover>div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50px);
+}
+
+#container {
+    width: 100vw;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#login-form {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 0;
+    width: 100%;
+}
+
+header {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+    padding: 0;
+    padding-left: 50px;
+    background: rgb(17, 133, 228);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(17, 133, 228, .8);
+}
+
+header>.index-link {
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+    color: white;
+}
+
+form p {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    margin: 10px auto;
+}
+
+.status-on {
+    color: rgb(10, 168, 10);
+}
+
+.status-off {
+    color: red;
+}
+
+.input-text {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    max-width: 400px;
+    margin: auto;
+    padding: 0;
+    font-size: 18px;
+    padding-left: 15px;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+}
+
+input[type="button"], .login-submit-btn {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    height: 40px;
+    margin: 25px auto;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: rgb(17, 133, 228);
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 100, .3);
+}
+
+.setting-page {
+    width: 400px;
+    margin: 0 auto;
+}
+
+input.shutdown-btn {
+    background: rgba(245, 47, 47, 0.877);
+}
+
+p.hello {
+    margin-top: 50px;
+}
+
+#logout-btn {
+    width: 100px;
+    height: 24px;
+    border: 1px solid royalblue;
+    background: white;
+    color: royalblue;
+    border-radius: 12px;
+}
+
+#logout-btn:hover {
+    background: royalblue;
+    color: white;
+}

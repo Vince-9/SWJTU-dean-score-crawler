@@ -3,7 +3,8 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
-const login = require('./loginToDean');
+const logger = require('./logger');
+// const login = require('./loginToDean');
 
 //查询成绩页
 const url = 'http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=studentScoreQuery&viewType=studentScore&orderType=submitDate&orderValue=desc';
@@ -11,7 +12,7 @@ const url = 'http://jwc.swjtu.edu.cn/vatuu/StudentScoreInfoAction?setAction=stud
 exports.getGradeBySid = function (sid) {
     return getGradePage(sid)
         .then((results) => {
-            return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
                 let html = results.data;
                 if (html.indexOf('课程名称') >= 0) {
                     //查询成功的页面的数据
@@ -22,14 +23,18 @@ exports.getGradeBySid = function (sid) {
                 else if (html.indexOf('您还未登陆') >= 0) {
                     console.log(`getLatestGrade.js:登录已失效`);
                     reject('未登录');
+                } else if (html.indexOf('权限') >= 0) {
+                    console.log(html);
+                    logger.logErr('返回的页面是无权限，开始尝试登录');
+                    reject('未登录');
                 }
-                else{
+                else {
                     console.log(`getLatestGrade.js:未知错误`);
                     reject('未知错误');
                     console.log(html);
                 }
             })
-            
+
         })
 }
 
@@ -60,7 +65,6 @@ function getDataFromHTML(data) {
     $('table#table3 tbody tr:nth-child(2) td:nth-child(7)').each((i, elem) => {
         let finalGrade = elem.children[0].data; //最终成绩
         let pat = /[0-9]+\.[0-9]+/;
-        let str = '123';
 
         //由于数据格式很奇怪,必须从中清洗出最终成绩
         results.finalGrade = parseFloat(finalGrade.substr(finalGrade.search(pat), 5));
@@ -76,7 +80,7 @@ function getDataFromHTML(data) {
         results.regularGrade = regularGrade;
     });
 
-    console.log(new Date(Date.now() + 8 * 60 * 60 * 1000),results);
+    //console.log(new Date(Date.now() + 8 * 60 * 60 * 1000),results);
     return results;
     //$.html()  this line is using.
 }

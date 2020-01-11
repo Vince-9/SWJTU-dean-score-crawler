@@ -22,6 +22,7 @@ exports.mysql_config = {
 };
 
 //email配置
+<<<<<<< HEAD
 exports.transporter = nodemailer.createTransport({
     // host: 'smtp.ethereal.email',
     service: 'qq', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
@@ -35,16 +36,85 @@ exports.transporter = nodemailer.createTransport({
 });
 <<<<<<< HEAD
 =======
+=======
+//在用户多了以后，单个邮箱不够用了，可能会出现发信限制，于是改用两个邮箱账号（优先使用ne126那个）
+exports.transporter = {
+    txEnter: nodemailer.createTransport({
+        host: 'smtp.exmail.qq.com',
+        // service: 'mxhichina', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+        port: 465, // SMTP 端口
+        secureConnection: true, // 使用了 SSL
+        auth: {
+            user: '', //你的邮箱
+            // 这里密码不是qq密码，是你设置的smtp授权码
+            pass: ''
+        }
+    }),
+    txEnterEmail: 'example@vin94.cn',
+    ne126: nodemailer.createTransport({
+        // host: 'smtp.ethereal.email',
+        service: '126', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+        port: 465, // SMTP 端口
+        secureConnection: true, // 使用了 SSL
+        auth: {
+            user: 'example@126.com', //你的邮箱
+            // 这里密码不是qq密码，是你设置的smtp授权码
+            pass: ''
+        }
+    }),
+    ne126Email: 'example@126.com'
+}
+>>>>>>> 56fdfe8c1105a9b27a7821bf587751e977c4ae02
 
+// 百度API的token，每隔一段时间（几天）就要重新获取一次
 exports.baiduApi = {
     'access_token': ''
+<<<<<<< HEAD
 }
 >>>>>>> b7e3fd989cce92c2aaaeb1109350fc91d94d8148
+=======
+};
+
+// 在使用百度识别文字的API时用到这个，改成你的公网IP或者域名即可。
+// 如果你的不是公网IP，就不能采用URL上传图片的方式，得换成base64编码来发送图片，详情参考
+// https://ai.baidu.com/docs#/OCR-API-GeneralBasic/top
+exports.domain = 'vin94.cn';
+>>>>>>> 56fdfe8c1105a9b27a7821bf587751e977c4ae02
 ```
 如果你想使用我的系统，请访问 http://vin94.cn/grades
 ## 功能
 在网页端录入你的教务账号、密码，自动查询成绩，在成绩发生更新时，1分钟之内通过邮件将分数和科目告知你。
 ## 文件
+
+```
+├─ module // 自定义的模块
+┃├─ email.js // 发送邮件
+┃├─ getImg.js // 从教务网获取验证码图片及SESSIONID
+┃├─ getLatestGrade.js // 查询成绩
+┃├─ handleConnection.js // 处理mysql连接
+┃├─ imgToString.js // 调用百度文字识别API，识别验证码
+┃├─ keepChecking.js // 控制循环查询新成绩
+┃├─ logger.js // 写日志
+┃├─ loginToDean.js // 登录到教务网
+┃├─ sensitiveConfig.js // 配置文件，包含敏感信息
+┃├─ user.js // 用户模块
+┃└─ util.js // 一些小工具
+├─ public
+┃├─ css
+┃├─ data
+┃┃├─ randImg // 验证码图片的目录
+┃├─ js
+├─ router
+┃└─ router.js // 路由控制
+├─ views
+┃├─ grade-setting.html
+┃├─ index.html
+┃└─ quest.html
+├─ .gitignore
+├─ app.js // 程序入口
+├─ package.json
+└─ README.md
+```
 
 ## 为什么要做这个
 每到期末季，我校学子总是少不了不断地登录教务网，一遍又一遍输入枯燥无味的验证码，不断地刷新成绩查询页面，期盼着老师快点出分。
