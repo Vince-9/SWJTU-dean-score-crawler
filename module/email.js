@@ -84,7 +84,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 		from: `"[Vincent] GPA" `, // sender address
 		to: email, // list of receivers
 		subject: `[You have [n.e.w] grades]${grades.finalGrade}`, // Subject line
-		html: `<h1>Welcome to Vincent's GPA notification system</h1><h2>抱歉，这封邮件可能迟到了数小时，因为我写的bug导致系统挂了</h2><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>paper grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
+		html: `<h1>Welcome to Vincent's GPA notification system</h1><h2>Tomorrow and grades, you never know which comes first.</h2><p>subject:</p><p>${grades.className}</p><p>final grades:<b>${grades.finalGrade}</b></p><p>paper grades：<b>${grades.paperGrade}</b></p><p>regular grades:<b>${grades.regularGrade}</b></p>`
 	};
 
 	if (mode == 1) {
@@ -96,7 +96,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 	console.log(mailOptions.html);
 
 	// send mail with defined transport object
-	toSendEmail(email, mailOptions, backupMailOptions)
+	toSendEmail(email, backupMailOptions, backupMailOptions)
 		.catch(err => {
 			try {
 				// 发送邮件失败
