@@ -96,7 +96,7 @@ exports.sendMailNewGrade = function (email, grades, mode) {
 	console.log(mailOptions.html);
 
 	// send mail with defined transport object
-	toSendEmail(email, backupMailOptions, backupMailOptions)
+	toSendEmail(email, mailOptions, backupMailOptions)
 		.catch(err => {
 			try {
 				// 发送邮件失败
@@ -150,8 +150,10 @@ exports.sendMailDeleteUser = (email) => {
 function toSendEmail(email, mailOptions, backupMailOptions) {
 	return new Promise((resolve, reject) => {
 		let from = '[麦芽糖]成绩通知系统" ';
-		mailOptions.from = from + transporter.ne126Email;//发信者的地址
-		transporter.ne126.sendMail(mailOptions, (error, info) => {
+		// mailOptions.from = from + transporter.ne126Email;//发信者的地址
+		mailOptions.from = from + transporter.txEnterEmail;//发信者的地址
+		// transporter.ne126.sendMail(mailOptions, (error, info) => {
+		transporter.txEnter.sendMail(mailOptions, (error, info) => {
 			if (error) {
 				logger.logErr('ne发送邮件失败:', email);
 				logger.log('ne发送邮件失败:', email);
