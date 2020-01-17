@@ -12,7 +12,7 @@ const imgToString = require('../module/imgToString');
 keepChecking.startChecking(); //开始查成绩
 
 router.get('/grades', (req, res) => {
-    res.render('index.html');
+    res.render('grades.html');
 });
 
 // 毛概

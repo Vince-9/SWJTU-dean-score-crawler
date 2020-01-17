@@ -1,68 +1,69 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SWJTU-成绩通知系统</title>
-    <link rel="stylesheet" href="../public/css/index.css">
-    <script src="../node_modules/vue/dist/vue.min.js"></script>
-    <script src="../node_modules/axios/dist/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vincent的官方网站</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <link rel="stylesheet" href="../public/css/index.css">
 </head>
 
 <body>
-    <div id="container">
-        <h1 id="logo">VIN94.CN</h1>
-        <h2>SWJTU-成绩通知系统</h2>
-        <!-- <h3>通过邮箱，第一时间获取最新成绩</h3> -->
-        <h3>明天和成绩，你永远不知道哪一个先来</h3>
-        <p v-if="userCount>0">当前用户数量：<b v-text="userCount"></b>人</p>
-        <div class="toogle">
-            <button :class="['toogle-btn',{'act':toogleForm==0}]" @click="toToogleForm(0)">录入</button>
-            <button :class="['toogle-btn',{'act':toogleForm==1}]" @click="toToogleForm(1)">验证码</button>
-        </div>
-        <form action="/GradeNotice" method="post" id="main-form" v-if="toogleForm==0">
-            <p><input type="text" class="input-text" name="username" id="username" v-model="username" placeholder="学号">
-            </p>
-            <p>
-                <input type="password" v-model="password" class="input-text" name="password" id="password"
-                    placeholder="教务密码"></p>
-            <p><input type="email" v-model="email" class="input-text" name="email" id="email" placeholder="邮箱"></p>
-            <p style="display:none"><input type="text" class="input-text" v-model="CDKEY" name="CDKEY" id="CDKEY"
-                    placeholder="兑换码（不区分大小写)"></p>
-            <input type="button" value="提交" class="main-submit-btn" @click="handleMainSubmitClick">
-        </form>
-        <!-- 提交验证码的表单 -->
-        <form id="randCode-form" v-if="toogleForm==1">
-            <img :src="randPath" @click="getRand" alt="" id="randCode">
-            <p><input type="text" class="input-text" name="username" v-model="username" placeholder="学号"></p>
-            <p>
-                <p><input type="text" id="randCode-input" class="input-text" v-model="randString" name="CDKEY"
-                        placeholder="验证码（不区分大小写）">
-                    <input type="button" id="re-get-rand" value="获取" @click="getRand">
-                </p>
+  <div id="container">
+    <header>Vincent的官方网站</header>
 
-                <input type="button" value="提交" class="main-submit-btn rand-submit-btn"
-                    @click="handleRandCodeSubmitClick">
-        </form>
-        <div id="cover" v-if="preventClick">
-            <div class="text">{{ coverText }}</div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="
+          https://vincent-demo-1.oss-cn-chengdu.aliyuncs.com/vin_forum_img/vin94.cn/megumi-1.png" alt="">
         </div>
+        <div class="swiper-slide">
+          <img src="https://vincent-demo-1.oss-cn-chengdu.aliyuncs.com/vin_forum_img/vin94.cn/62.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://vincent-demo-1.oss-cn-chengdu.aliyuncs.com/vin_forum_img/vin94.cn/64.png" alt="">
+        </div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
 
-        <!-- 底部提示信息 -->
-        <div class="hint">
-            <ul>
-                <li>如果密码错误，本系统将毫无保留地删除你的信息，请放心使用。</li>
-                <li>欢迎加群 <b>821850193</b> 来畅聊</li>
-                <li>如需退订/重新订阅服务或修改邮箱，请访问<a href="http://vin94.cn/grade-setting" target="_blank" rel="noopener noreferrer">vin94.cn/grade-setting</a></li>
-                <li>在录入信息并登录成功后，会收到一封邮件，如果没收到，可能是邮箱错了或者在<b>垃圾箱</b>（将vincent_2021@126.com加入白名单有奇效），更改邮箱请点击上方的链接。</li>
-                <li>可以给我一个star吗？<a href="https://github.com/Vince-9/SWJTU-dean-score-crawler" target="_blank" rel="noopener noreferrer">github</a></li>
-            </ul>
-        </div>
+      <!-- 如果需要导航按钮 -->
+      <div class="swiper-btn swiper-button-prev"></div>
+      <div class="swiper-btn swiper-button-next"></div>
+
+      <!-- 如果需要滚动条 -->
+      <div class="swiper-scrollbar"></div>
     </div>
 
-    <script src="../public/js/index.js"></script>
+    <div class="products">
+      <div class="item">
+        <a href="http://vin94.cn/grades" target="_blank" rel="noopener noreferrer">
+          <p class="title">西南交大成绩通知系统</p>
+          <img src="https://vincent-demo-1.oss-cn-chengdu.aliyuncs.com/vin_forum_img/vin94.cn/grades-noti.png" alt=""
+            class="preview">
+        </a>
+      </div>
+      <div class="item">
+        <p class="title">联系我：vincent2021@foxmail.com</p>
+        <img src="https://vincent-demo-1.oss-cn-chengdu.aliyuncs.com/vin_forum_img/vin94.cn/IMG_20191116_114312.png"
+          alt="" class="preview">
+      </div>
+    </div>
+
+    <!-- 底部备案栏 -->
+    <footer id="records-footer">
+      <div class="records">
+        <a href="http://www.beian.miit.gov.cn/state/outPortal/loginPortal.action" target="_blank"
+          rel="noopener noreferrer">蜀ICP备19036436号</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/swiper/js/swiper.min.js"> </script>
+  <script src="../public/js/index.js"></script>
 </body>
 
 </html>
