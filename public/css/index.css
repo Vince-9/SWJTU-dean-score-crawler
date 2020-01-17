@@ -53,8 +53,7 @@ header {
   .swiper-btn {
     display: none;
   }
-
-  .products  {
+  .products {
     height: 100px !important;
   }
 }
