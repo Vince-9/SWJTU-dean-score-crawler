@@ -62,7 +62,7 @@ function getDataFromHTML(data) {
         results.className = className;
     });
 
-    $('table#table3 tbody tr:nth-child(2) td:nth-child(7)').each((i, elem) => {
+    $('table#table3 tbody tr:nth-child(2) td:nth-child(6)').each((i, elem) => {
         let finalGrade = elem.children[0].data; //最终成绩
         let pat = /[0-9]+\.[0-9]+/;
 
@@ -70,12 +70,12 @@ function getDataFromHTML(data) {
         results.finalGrade = parseFloat(finalGrade.substr(finalGrade.search(pat), 5));
     });
 
-    $('table#table3 tbody tr:nth-child(2) td:nth-child(8)').each((i, elem) => {
+    $('table#table3 tbody tr:nth-child(2) td:nth-child(7)').each((i, elem) => {
         let paperGrade = elem.children[0].data; //期末成绩
         results.paperGrade = paperGrade;
     });
 
-    $('table#table3 tbody tr:nth-child(2) td:nth-child(9)').each((i, elem) => {
+    $('table#table3 tbody tr:nth-child(2) td:nth-child(8)').each((i, elem) => {
         let regularGrade = elem.children[0].data; //平时成绩
         results.regularGrade = regularGrade;
     });
